@@ -22,10 +22,7 @@ import pkgJson from './package.json' assert {type: 'json'};
 
 const require = createRequire(import.meta.url);
 
-const external = [
-  'abort-controller', 'buffer', 'events', 'process', 'string_decoder',
-  'safe-buffer'
-];
+const external = Object.keys(pkgJson.dependencies);
 
 export default {
   input: ['src/stream.mjs'],

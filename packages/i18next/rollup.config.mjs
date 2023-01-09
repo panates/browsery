@@ -20,14 +20,7 @@ const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'i18next');
 import pkgJson from './package.json' assert {type: 'json'};
 
-const external = [
-  '@browsery/stream',
-  'events',
-  'string_decoder',
-  'util',
-  'util-deprecate',
-  'process'
-];
+const external = Object.keys(pkgJson.dependencies);
 
 const intro = `
 function assertOk(a){

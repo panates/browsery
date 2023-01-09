@@ -22,14 +22,7 @@ import pkgJson from './package.json' assert {type: 'json'};
 
 const require = createRequire(import.meta.url);
 
-const external = [
-  '@browsery/stream',
-  'events',
-  'string_decoder',
-  'util',
-  'util-deprecate',
-  'process'
-];
+const external = Object.keys(pkgJson.dependencies);
 
 const intro = `
 function assertOk(a){

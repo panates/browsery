@@ -1,23 +1,23 @@
 {
-  "name": "@browsery/highland",
+  "name": "@browsery/fs",
   "version": "0.0.1",
-  "description": "Browser compatible highland module",
+  "description": "Browser compatible NodeJS fs module",
   "author": "Panates",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/highland"
+    "directory": "packages/fs"
   },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/highland"
+    "clean": "rimraf ../../build/fs"
   },
   "type": "module",
-  "module": "./esm/highland.min.mjs",
-  "main": "./cjs/highland.min.cjs",
-  "browser": "./cjs/highland.min.mjs",
+  "module": "./esm/fs.min.mjs",
+  "main": "./cjs/fs.min.cjs",
+  "browser": "./cjs/fs.min.mjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
   "exports": {
@@ -25,22 +25,14 @@
       "default": "./package.json"
     },
     ".": {
-      "require": "./cjs/highland.min.cjs",
-      "default": "./esm/highland.min.mjs",
-      "browser": "./cjs/highland.min.mjs"
+      "require": "./cjs/fs.min.cjs",
+      "default": "./esm/fs.min.mjs",
+      "browser": "./cjs/fs.min.mjs"
     }
   },
   "dependencies": {
-    "@browsery/stream": "^0.0.1",
-    "events": "^3.3.0",
-    "process": "^0.11.10",
-    "string_decoder": "^1.3.0",
-    "util": "^0.12.5",
-    "util-deprecate": "^1.0.2"
   },
   "devDependencies": {
-    "highland": "^2.13.5",
-    "@types/highland": "^2.12.14"
   },
   "peerDependencies": {
   },
@@ -53,7 +45,7 @@
     "README.md"
   ],
   "keywords": [
-    "highland",
+    "fs",
     "browser",
     "browsery",
     "browserify"
