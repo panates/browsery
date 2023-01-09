@@ -1,0 +1,60 @@
+{
+  "name": "@browsery/highland",
+  "version": "0.0.1",
+  "description": "Browser compatible highland module",
+  "author": "Panates",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/highland"
+  },
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "rollup -c rollup.config.mjs",
+    "clean": "rimraf ../../build/highland"
+  },
+  "type": "module",
+  "module": "./esm/highland.min.mjs",
+  "main": "./cjs/highland.min.cjs",
+  "browser": "./cjs/highland.min.mjs",
+  "types": "./typings/index.d.ts",
+  "typings": "./typings/index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "require": "./cjs/highland.min.cjs",
+      "default": "./esm/highland.min.mjs",
+      "browser": "./cjs/highland.min.mjs"
+    }
+  },
+  "dependencies": {
+    "@browsery/stream": "^0.0.1",
+    "events": "^3.3.0",
+    "string_decoder": "^1.3.0",
+    "util": "^0.12.5",
+    "util-deprecate": "^1.0.2"
+  },
+  "devDependencies": {
+    "highland": "^2.13.5",
+    "@types/highland": "^2.12.14"
+  },
+  "peerDependencies": {
+  },
+  "sideEffects": false,
+  "files": [
+    "typings/",
+    "cjs/",
+    "esm/",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "highland",
+    "browser",
+    "browsery",
+    "browserify"
+  ]
+}

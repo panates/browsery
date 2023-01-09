@@ -1,0 +1,57 @@
+{
+  "name": "@browsery/http-parser",
+  "version": "0.0.1",
+  "description": "Browser compatible http-parser-js module",
+  "author": "Panates",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/http-parser"
+  },
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "rollup -c rollup.config.mjs",
+    "clean": "rimraf ../../build/http-parser"
+  },
+  "type": "module",
+  "module": "./esm/http-parser.min.mjs",
+  "main": "./cjs/http-parser.min.cjs",
+  "browser": "./cjs/http-parser.min.mjs",
+  "types": "./typings/index.d.ts",
+  "typings": "./typings/index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "require": "./cjs/http-parser.min.cjs",
+      "default": "./esm/http-parser.min.mjs",
+      "browser": "./cjs/http-parser.min.mjs"
+    }
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "http-parser-js": "^0.5.8"
+  },
+  "peerDependencies": {
+  },
+  "sideEffects": false,
+  "files": [
+    "typings/",
+    "cjs/",
+    "esm/",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "http",
+    "parser",
+    "http-parser",
+    "http-parser-js",
+    "browser",
+    "browsery",
+    "browserify"
+  ]
+}

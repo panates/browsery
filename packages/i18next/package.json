@@ -1,0 +1,55 @@
+{
+  "name": "@browsery/i18next",
+  "version": "0.0.1",
+  "description": "Browser compatible i18next module",
+  "author": "Panates",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/i18next"
+  },
+  "scripts": {
+    "prebuild": "npm run clean",
+    "build": "rollup -c rollup.config.mjs",
+    "clean": "rimraf ../../build/i18next"
+  },
+  "type": "module",
+  "module": "./esm/i18next.min.mjs",
+  "main": "./cjs/i18next.min.cjs",
+  "browser": "./cjs/i18next.min.mjs",
+  "types": "./typings/index.d.ts",
+  "typings": "./typings/index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "require": "./cjs/i18next.min.cjs",
+      "default": "./esm/i18next.min.mjs",
+      "browser": "./cjs/i18next.min.mjs"
+    }
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "i18next": "^22.4.9"
+  },
+  "peerDependencies": {
+  },
+  "sideEffects": false,
+  "files": [
+    "typings/",
+    "cjs/",
+    "esm/",
+    "LICENSE",
+    "README.md"
+  ],
+  "keywords": [
+    "i18next",
+    "i18n",
+    "browser",
+    "browsery",
+    "browserify"
+  ]
+}
