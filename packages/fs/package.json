@@ -26,8 +26,7 @@
     },
     ".": {
       "require": "./cjs/fs.min.cjs",
-      "default": "./esm/fs.min.mjs",
-      "browser": "./cjs/fs.min.mjs"
+      "default": "./esm/fs.min.mjs"
     }
   },
   "dependencies": {},

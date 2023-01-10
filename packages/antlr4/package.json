@@ -26,8 +26,7 @@
     },
     ".": {
       "require": "./cjs/antlr4.min.cjs",
-      "default": "./esm/antlr4.min.mjs",
-      "browser": "./cjs/antlr4.min.mjs"
+      "default": "./esm/antlr4.min.mjs"
     }
   },
   "dependencies": {},

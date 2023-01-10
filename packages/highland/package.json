@@ -26,8 +26,7 @@
     },
     ".": {
       "require": "./cjs/highland.min.cjs",
-      "default": "./esm/highland.min.mjs",
-      "browser": "./cjs/highland.min.mjs"
+      "default": "./esm/highland.min.mjs"
     }
   },
   "dependencies": {

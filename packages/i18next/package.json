@@ -26,8 +26,7 @@
     },
     ".": {
       "require": "./cjs/i18next.min.cjs",
-      "default": "./esm/i18next.min.mjs",
-      "browser": "./cjs/i18next.min.mjs"
+      "default": "./esm/i18next.min.mjs"
     }
   },
   "dependencies": {},

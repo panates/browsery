@@ -26,8 +26,7 @@
     },
     ".": {
       "require": "./cjs/stream.min.cjs",
-      "default": "./esm/stream.min.mjs",
-      "browser": "./cjs/stream.min.mjs"
+      "default": "./esm/stream.min.mjs"
     }
   },
   "dependencies": {
