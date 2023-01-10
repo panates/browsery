@@ -19,6 +19,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'i18next');
 import pkgJson from './package.json' assert {type: 'json'};
+import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const external = Object.keys(pkgJson.dependencies);
 
@@ -99,10 +100,7 @@ function runCommands() {
   return command([
     // Copy package.json
     async () => {
-      const json = {...pkgJson};
-      json.dependencies = {};
-      json.devDependencies = undefined;
-      json.scripts = undefined;
+      const json = filterDependencies(pkgJson, external);
       await fs.writeFile(path.join(targetPath, 'package.json'), JSON.stringify(json, undefined, 2), 'utf-8');
     },
     // Copy README.md
