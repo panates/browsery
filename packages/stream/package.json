@@ -1,6 +1,6 @@
 {
   "name": "@browsery/stream",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Browser compatible NodeJS stream module",
   "author": "Panates",
   "license": "MIT",
