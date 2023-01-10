@@ -14,12 +14,12 @@ import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
 import {copyFiles} from '../../utils/copy-files.mjs';
 import {copyTextFile} from '../../utils/copy-text-file.mjs';
 import {downloadI18next} from './tools/download-i18next.mjs';
+import pkgJson from './package.json' assert {type: 'json'};
+import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'i18next');
-import pkgJson from './package.json' assert {type: 'json'};
-import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const external = Object.keys(pkgJson.dependencies);
 

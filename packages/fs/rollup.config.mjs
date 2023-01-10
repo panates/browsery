@@ -5,12 +5,12 @@ import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
 import {copyFiles} from '../../utils/copy-files.mjs';
+import pkgJson from './package.json' assert {type: 'json'};
+import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'fs');
-import pkgJson from './package.json' assert {type: 'json'};
-import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 export default {
   input: ['src/fs.mjs'],

@@ -14,12 +14,12 @@ import clean from '@rollup-extras/plugin-clean';
 import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
 import {copyFiles} from '../../utils/copy-files.mjs';
 import {copyTextFile} from '../../utils/copy-text-file.mjs';
+import pkgJson from './package.json' assert {type: 'json'};
+import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'http-parser');
-import pkgJson from './package.json' assert {type: 'json'};
-import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const require = createRequire(import.meta.url);
 
