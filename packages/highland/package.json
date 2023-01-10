@@ -1,6 +1,6 @@
 {
   "name": "@browsery/highland",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Browser compatible highland module",
   "author": "Panates",
   "license": "MIT",
@@ -30,8 +30,8 @@
     }
   },
   "dependencies": {
-    "@browsery/stream": "^0.0.2",
-    "@browsery/util": "^0.0.2",
+    "@browsery/stream": "^0.1.0",
+    "@browsery/util": "^0.1.0",
     "events": "^3.3.0",
     "process": "^0.11.10",
     "string_decoder": "^1.3.0",
