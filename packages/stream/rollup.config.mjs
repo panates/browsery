@@ -26,7 +26,7 @@ const require = createRequire(import.meta.url);
 const external = Object.keys(pkgJson.dependencies);
 
 export default {
-  input: ['src/stream.mjs'],
+  input: [path.resolve(path.dirname(require.resolve('readable-stream')), '../stream.js')],
   output: [{
     dir: path.resolve(targetPath, 'esm'),
     entryFileNames: '[name].min.mjs',

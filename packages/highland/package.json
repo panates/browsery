@@ -15,9 +15,9 @@
     "clean": "rimraf ../../build/highland"
   },
   "type": "module",
-  "module": "./esm/highland.min.mjs",
-  "main": "./cjs/highland.min.cjs",
-  "browser": "./cjs/highland.min.mjs",
+  "module": "./esm/index.min.mjs",
+  "main": "./cjs/index.min.cjs",
+  "browser": "./cjs/index.min.mjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
   "exports": {
@@ -25,16 +25,16 @@
       "default": "./package.json"
     },
     ".": {
-      "require": "./cjs/highland.min.cjs",
-      "default": "./esm/highland.min.mjs"
+      "require": "./cjs/index.min.cjs",
+      "default": "./esm/index.min.mjs"
     }
   },
   "dependencies": {
     "@browsery/stream": "^0.0.2",
+    "@browsery/util": "^0.0.2",
     "events": "^3.3.0",
     "process": "^0.11.10",
     "string_decoder": "^1.3.0",
-    "util": "^0.12.5",
     "util-deprecate": "^1.0.2"
   },
   "devDependencies": {

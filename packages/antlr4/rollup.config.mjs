@@ -26,27 +26,29 @@ const require = createRequire(import.meta.url);
 const external = Object.keys(pkgJson.dependencies);
 
 export default {
-  input: ['src/antlr4.mjs'],
+  input: [path.join(path.dirname(require.resolve('antlr4')), '../src/antlr4/index.js')],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].min.mjs',
       format: 'esm',
-      name: 'Stream',
+      name: 'Antlr4',
       manualChunks: manualChunksResolver({
         external,
         exclude: ['antlr4']
-      })
+      }),
+      exports: 'named'
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].min.mjs',
       format: 'cjs',
-      name: 'Stream',
+      name: 'Antlr4',
       manualChunks: manualChunksResolver({
         external,
         exclude: ['antlr4']
-      })
+      }),
+      exports: 'named'
     }
   ],
   external,

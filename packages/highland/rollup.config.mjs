@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'node:url';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
@@ -26,13 +27,13 @@ const require = createRequire(import.meta.url);
 const external = Object.keys(pkgJson.dependencies);
 
 export default {
-  input: ['src/highland.mjs'],
+  input: [path.join(path.dirname(require.resolve('highland')), '../lib/index.js')],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].min.mjs',
       format: 'esm',
-      name: 'Stream',
+      name: 'Highland',
       manualChunks: manualChunksResolver({
         external,
         exclude: ['highland']
@@ -42,7 +43,7 @@ export default {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].min.mjs',
       format: 'cjs',
-      name: 'Stream',
+      name: 'Highland',
       manualChunks: manualChunksResolver({
         external,
         exclude: ['highland']
@@ -51,15 +52,21 @@ export default {
   ],
   external,
   plugins: [
-    {
-      transform(code) {
-        if (code.includes('\'stream\'')) {
-          code =
-              code.replaceAll(/require\('stream'\)/g, 'require(\'@browsery/stream\')');
-        }
-        return code;
-      }
-    },
+    // {
+    //   transform(code) {
+    //     if (code.includes('\'stream\'')) {
+    //       code =
+    //           code.replaceAll(/require\('stream'\)/g, 'require(\'@browsery/stream\')');
+    //     }
+    //     return code;
+    //   }
+    // },
+    alias({
+      entries: [
+        {find: 'stream', replacement: '@browsery/stream'},
+        {find: 'util', replacement: '@browsery/util'}
+      ]
+    }),
     clean(targetPath),
     terser(),
     commonjs(),

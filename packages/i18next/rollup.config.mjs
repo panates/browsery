@@ -36,13 +36,13 @@ export default async () => {
   await downloadI18next();
 
   return {
-    input: ['src/i18next.mjs'],
+    input: [path.resolve(dirname, 'tmp/src/index.js')],
     output: [
       {
         dir: path.resolve(targetPath, 'esm'),
         entryFileNames: '[name].min.mjs',
         format: 'esm',
-        name: 'Stream',
+        name: 'I18next',
         intro,
         manualChunks: manualChunksResolver({
           external,
@@ -53,7 +53,7 @@ export default async () => {
         dir: path.resolve(targetPath, 'cjs'),
         entryFileNames: '[name].min.mjs',
         format: 'cjs',
-        name: 'Stream',
+        name: 'I18next',
         intro,
         manualChunks: manualChunksResolver({
           external,

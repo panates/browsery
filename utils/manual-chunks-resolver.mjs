@@ -1,21 +1,26 @@
 import chalk from 'chalk';
 
+const localNameRegex = /\/browsery\/build\/([^\/]*)/;
 const moduleNameRegex = /\/node_modules\/([^\/]*)/;
 const commonjsExternalRegex = /([^?]*)\?commonjs-external$/;
 
 export function manualChunksResolver({external, exclude}) {
   let i = 0;
   const logged = [];
+  external = external || [];
+  exclude = exclude || [];
   const excludeAll = [...exclude, external];
   return function manualChunks(id) {
     if (!i++)
       console.log(chalk.yellow.bold('======= Processed Packages ====='));
     id = trimZeroChars(id);
-    const m = moduleNameRegex.exec(id) || commonjsExternalRegex.exec(id);
-    if (m) {
-      const name = m[1];
-      const isLogged = logged.includes(m[1]);
-      logged.push(m[1]);
+    let m;
+    let name = (m = localNameRegex.exec(id)) && '@opra/' + m[1];
+    if (!name)
+      name = (m = moduleNameRegex.exec(id) || commonjsExternalRegex.exec(id)) && m[1];
+    if (name) {
+      const isLogged = logged.includes(name);
+      logged.push(name);
 
       if (external && external.includes(name)) {
         if (!isLogged)

@@ -11,7 +11,6 @@ import filesize from 'rollup-plugin-filesize';
 import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
-import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
 import {copyFiles} from '../../utils/copy-files.mjs';
 import {copyTextFile} from '../../utils/copy-text-file.mjs';
 import pkgJson from './package.json' assert {type: 'json'};
@@ -19,60 +18,27 @@ import {filterDependencies} from '../../utils/filter-dependencies.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
-const targetPath = path.resolve(buildPath, 'http-parser');
+const targetPath = path.resolve(buildPath, 'util');
 
 const require = createRequire(import.meta.url);
 
 const external = Object.keys(pkgJson.dependencies);
 
-const intro = `
-function assertOk(a){
-  throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == true');
-};
-function assertEqual(a, b){
-  throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == ' + JSON.stringify(b));
-};
-`;
-
 export default {
-  input: [require.resolve('http-parser-js')],
-  output: [
-    {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].min.mjs',
-      format: 'esm',
-      name: 'HttpParser',
-      intro,
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['http-parser-js']
-      })
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].min.mjs',
-      format: 'cjs',
-      name: 'HttpParser',
-      intro,
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['http-parser-js']
-      })
-    }
-  ],
+  input: [require.resolve('util')],
+  output: [{
+    dir: path.resolve(targetPath, 'esm'),
+    entryFileNames: '[name].min.mjs',
+    format: 'esm',
+    name: 'Util'
+  }, {
+    dir: path.resolve(targetPath, 'cjs'),
+    entryFileNames: '[name].min.mjs',
+    format: 'cjs',
+    name: 'Util'
+  }],
   external,
   plugins: [
-    {
-      transform(code) {
-        if (code.includes('assert.')) {
-          code = code
-              .replaceAll('var assert = require(\'assert\');', '')
-              .replaceAll('assert.ok(', 'assertOk(')
-              .replaceAll('assert.equal(', 'assertEqual(');
-        }
-        return code;
-      }
-    },
     clean(targetPath),
     terser(),
     commonjs(),
@@ -103,25 +69,25 @@ function runCommands() {
     },
     // Copy README.md
     () => copyTextFile(
-        require.resolve('http-parser-js/README.md'),
+        require.resolve('util/README.md'),
         path.join(targetPath, 'README.md'),
         (content) =>
-            `# @browsery/http-parser
-Browser compatible http-parser!
+            `# @browsery/util
+Browser compatible NodeJS util API!
 
-This module bundles [http-parser-js](https://www.npmjs.com/package/http-parser-js) module for browsers!
+This module bundles [util](https://www.npmjs.com/package/util) module for browsers!
 
 ` +
             content),
-    // Copy LICENSE from readable-stream
+    // Copy LICENSE from util
     () => copyFiles(
-        path.dirname(require.resolve('http-parser-js/package.json')),
+        path.dirname(require.resolve('util/package.json')),
         ['LICENSE', '!node_modules/**'],
         targetPath),
-    // Copy typings from @types/readable-stream
-    () => copyFiles(
-        path.dirname(require.resolve('http-parser-js/package.json')),
-        ['**/*.d.ts', '!node_modules/**'],
-        path.join(targetPath, 'typings'))
+    // Copy typings from @types/util
+    // () => copyFiles(
+    //     path.dirname(require.resolve('@types/readable-stream/package.json')),
+    //     ['**/*.d.ts', '!node_modules/**'],
+    //     path.join(targetPath, 'typings'))
   ], {once: true, exitOnFail: true});
 }

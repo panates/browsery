@@ -17,11 +17,13 @@ export default {
   output: [{
     dir: path.resolve(targetPath, 'esm'),
     entryFileNames: '[name].min.mjs',
-    format: 'esm'
+    format: 'esm',
+    name: 'Fs',
   }, {
     dir: path.resolve(targetPath, 'cjs'),
     entryFileNames: '[name].min.mjs',
-    format: 'cjs'
+    format: 'cjs',
+    name: 'Fs',
   }],
   plugins: [
     clean(targetPath),
