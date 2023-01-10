@@ -1,6 +1,6 @@
 {
   "name": "@browsery/stream",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Browser compatible NodeJS stream module",
   "author": "Panates",
   "license": "MIT",
@@ -42,8 +42,7 @@
     "readable-stream": "^4.3.0",
     "@types/readable-stream": "^2.3.15"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "sideEffects": false,
   "files": [
     "typings/",

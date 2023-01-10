@@ -1,6 +1,6 @@
 {
   "name": "@browsery/i18next",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Browser compatible i18next module",
   "author": "Panates",
   "license": "MIT",
@@ -30,13 +30,11 @@
       "browser": "./cjs/i18next.min.mjs"
     }
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "i18next": "^22.4.9"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "sideEffects": false,
   "files": [
     "typings/",
