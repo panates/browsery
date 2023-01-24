@@ -8,7 +8,6 @@ import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import filesize from 'rollup-plugin-filesize';
-import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
 import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
@@ -23,14 +22,14 @@ const targetPath = path.resolve(buildPath, 'antlr4');
 
 const require = createRequire(import.meta.url);
 
-const external = Object.keys(pkgJson.dependencies);
+const external = Object.keys(pkgJson.dependencies || {});
 
 export default {
   input: [path.join(path.dirname(require.resolve('antlr4')), '../src/antlr4/index.js')],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].min.mjs',
+      entryFileNames: '[name].mjs',
       format: 'esm',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -41,7 +40,7 @@ export default {
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].min.mjs',
+      entryFileNames: '[name].cjs',
       format: 'cjs',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -54,7 +53,6 @@ export default {
   external,
   plugins: [
     clean(targetPath),
-    terser(),
     commonjs(),
     strip(),
     filesize(),

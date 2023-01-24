@@ -15,9 +15,8 @@
     "clean": "rimraf ../../build/fs"
   },
   "type": "module",
-  "module": "./esm/fs.min.mjs",
-  "main": "./cjs/fs.min.cjs",
-  "browser": "./cjs/fs.min.mjs",
+  "module": "./esm/fs.mjs",
+  "main": "./cjs/fs.cjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
   "exports": {
@@ -25,8 +24,8 @@
       "default": "./package.json"
     },
     ".": {
-      "require": "./cjs/fs.min.cjs",
-      "default": "./esm/fs.min.mjs"
+      "require": "./cjs/fs.cjs",
+      "default": "./esm/fs.mjs"
     }
   },
   "dependencies": {},

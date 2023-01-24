@@ -15,16 +15,15 @@
     "clean": "rimraf ../../build/util"
   },
   "type": "module",
-  "module": "./esm/util.min.mjs",
-  "main": "./cjs/util.min.cjs",
-  "browser": "./cjs/util.min.mjs",
+  "module": "./esm/util.mjs",
+  "main": "./cjs/util.cjs",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "require": "./cjs/util.min.cjs",
-      "default": "./esm/util.min.mjs"
+      "require": "./cjs/util.cjs",
+      "default": "./esm/util.mjs"
     }
   },
   "dependencies": {
@@ -33,7 +32,6 @@
   "devDependencies": {
     "util": "^0.12.5"
   },
-  "peerDependencies": {},
   "sideEffects": false,
   "files": [
     "typings/",

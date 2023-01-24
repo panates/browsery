@@ -8,7 +8,6 @@ import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import filesize from 'rollup-plugin-filesize';
-import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
 import {copyFiles} from '../../utils/copy-files.mjs';
@@ -28,19 +27,18 @@ export default {
   input: [require.resolve('util')],
   output: [{
     dir: path.resolve(targetPath, 'esm'),
-    entryFileNames: '[name].min.mjs',
+    entryFileNames: '[name].mjs',
     format: 'esm',
     name: 'Util'
   }, {
     dir: path.resolve(targetPath, 'cjs'),
-    entryFileNames: '[name].min.mjs',
+    entryFileNames: '[name].cjs',
     format: 'cjs',
     name: 'Util'
   }],
   external,
   plugins: [
     clean(targetPath),
-    terser(),
     commonjs(),
     strip(),
     filesize(),

@@ -5,10 +5,9 @@ import {pipeline} from 'stream/promises';
 import {fileURLToPath} from 'node:url';
 import StreamZip from 'node-stream-zip';
 import rimraf from 'rimraf';
-import {promisify} from 'util';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const rimrafAsync = promisify(rimraf);
+
 
 const downloadFile = async (url, path) => pipeline(
     (await fetch(url)).body, fs.createWriteStream(path));
@@ -17,7 +16,7 @@ export async function downloadI18next() {
   const tmpDir = path.resolve(dirname, '../tmp');
   const srcDir = path.resolve(tmpDir, 'src');
 
-  await rimrafAsync(srcDir);
+  await rimraf(srcDir);
   await fsp.mkdir(srcDir, {recursive: true});
 
   const zipFile = path.join(tmpDir, 'master.zip');

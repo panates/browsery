@@ -15,9 +15,8 @@
     "clean": "rimraf ../../build/i18next"
   },
   "type": "module",
-  "module": "./esm/index.min.mjs",
-  "main": "./cjs/index.min.cjs",
-  "browser": "./cjs/index.min.mjs",
+  "module": "./esm/index.mjs",
+  "main": "./cjs/index.cjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
   "exports": {
@@ -25,15 +24,13 @@
       "default": "./package.json"
     },
     ".": {
-      "require": "./cjs/index.min.cjs",
-      "default": "./esm/index.min.mjs"
+      "require": "./cjs/index.cjs",
+      "default": "./esm/index.mjs"
     }
   },
-  "dependencies": {},
   "devDependencies": {
     "i18next": "^22.4.9"
   },
-  "peerDependencies": {},
   "sideEffects": false,
   "files": [
     "typings/",

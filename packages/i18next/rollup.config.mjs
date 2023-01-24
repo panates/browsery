@@ -7,7 +7,6 @@ import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import filesize from 'rollup-plugin-filesize';
-import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
 import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
@@ -21,7 +20,7 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'i18next');
 
-const external = Object.keys(pkgJson.dependencies);
+const external = Object.keys(pkgJson.dependencies || {});
 
 const intro = `
 function assertOk(a){
@@ -40,7 +39,7 @@ export default async () => {
     output: [
       {
         dir: path.resolve(targetPath, 'esm'),
-        entryFileNames: '[name].min.mjs',
+        entryFileNames: '[name].mjs',
         format: 'esm',
         name: 'I18next',
         intro,
@@ -51,7 +50,7 @@ export default async () => {
       },
       {
         dir: path.resolve(targetPath, 'cjs'),
-        entryFileNames: '[name].min.mjs',
+        entryFileNames: '[name].cjs',
         format: 'cjs',
         name: 'I18next',
         intro,
@@ -75,7 +74,6 @@ export default async () => {
         }
       },
       clean(targetPath),
-      terser(),
       commonjs(),
       strip(),
       filesize(),

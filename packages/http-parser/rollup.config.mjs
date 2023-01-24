@@ -8,7 +8,6 @@ import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import filesize from 'rollup-plugin-filesize';
-import terser from '@rollup/plugin-terser';
 import command from 'rollup-plugin-command';
 import clean from '@rollup-extras/plugin-clean';
 import {manualChunksResolver} from '../../utils/manual-chunks-resolver.mjs';
@@ -23,7 +22,7 @@ const targetPath = path.resolve(buildPath, 'http-parser');
 
 const require = createRequire(import.meta.url);
 
-const external = Object.keys(pkgJson.dependencies);
+const external = Object.keys(pkgJson.dependencies || {});
 
 const intro = `
 function assertOk(a){
@@ -39,7 +38,7 @@ export default {
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].min.mjs',
+      entryFileNames: '[name].mjs',
       format: 'esm',
       name: 'HttpParser',
       intro,
@@ -50,7 +49,7 @@ export default {
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].min.mjs',
+      entryFileNames: '[name].cjs',
       format: 'cjs',
       name: 'HttpParser',
       intro,
@@ -74,7 +73,6 @@ export default {
       }
     },
     clean(targetPath),
-    terser(),
     commonjs(),
     strip(),
     filesize(),
