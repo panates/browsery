@@ -25,7 +25,7 @@ const require = createRequire(import.meta.url);
 const external = Object.keys(pkgJson.dependencies || {});
 
 export default {
-  input: [path.join(path.dirname(require.resolve('antlr4')), '../src/antlr4/index.js')],
+  input: [path.join(path.dirname(require.resolve('antlr4')), '../src/antlr4/index.web.js')],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),

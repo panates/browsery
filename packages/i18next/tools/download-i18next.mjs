@@ -4,10 +4,9 @@ import fsp from 'fs/promises';
 import {pipeline} from 'stream/promises';
 import {fileURLToPath} from 'node:url';
 import StreamZip from 'node-stream-zip';
-import rimraf from 'rimraf';
+import {rimraf} from 'rimraf';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-
 
 const downloadFile = async (url, path) => pipeline(
     (await fetch(url)).body, fs.createWriteStream(path));
