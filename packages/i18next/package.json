@@ -29,7 +29,7 @@
     }
   },
   "devDependencies": {
-    "i18next": "^22.4.9"
+    "i18next": "^22.4.15"
   },
   "sideEffects": false,
   "files": [
