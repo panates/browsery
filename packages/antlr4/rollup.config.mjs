@@ -29,7 +29,7 @@ export default {
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
+      entryFileNames: 'index.mjs',
       format: 'esm',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -40,7 +40,7 @@ export default {
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
+      entryFileNames: 'index.cjs',
       format: 'cjs',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
