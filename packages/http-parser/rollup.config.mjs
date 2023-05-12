@@ -26,10 +26,12 @@ const external = Object.keys(pkgJson.dependencies || {});
 
 const intro = `
 function assertOk(a){
-  throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == true');
+  if (!a)
+    throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == true');
 };
 function assertEqual(a, b){
-  throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == ' + JSON.stringify(b));
+  if (a !== b)
+    throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == ' + JSON.stringify(b));
 };
 `;
 
