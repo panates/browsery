@@ -1,6 +1,6 @@
 {
   "name": "@browsery/fs",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Browser compatible NodeJS fs module",
   "author": "Panates",
   "license": "MIT",
