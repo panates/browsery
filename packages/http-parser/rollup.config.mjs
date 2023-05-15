@@ -41,7 +41,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].mjs',
-      chunksFileNames: '[name]-[hash].mjs',
+      chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
       name: 'HttpParser',
       intro,
@@ -53,7 +53,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].cjs',
-      chunksFileNames: '[name]-[hash].cjs',
+      chunkFileNames: '[name]-[hash].cjs',
       format: 'cjs',
       name: 'HttpParser',
       intro,

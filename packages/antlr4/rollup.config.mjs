@@ -30,7 +30,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: 'index.mjs',
-      chunksFileNames: '[name]-[hash].mjs',
+      chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -42,7 +42,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: 'index.cjs',
-      chunksFileNames: '[name]-[hash].cjs',
+      chunkFileNames: '[name]-[hash].cjs',
       format: 'cjs',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({

@@ -16,13 +16,13 @@ export default {
   output: [{
     dir: path.resolve(targetPath, 'esm'),
     entryFileNames: '[name].mjs',
-    chunksFileNames: '[name]-[hash].mjs',
+    chunkFileNames: '[name]-[hash].mjs',
     format: 'esm',
     name: 'Fs',
   }, {
     dir: path.resolve(targetPath, 'cjs'),
     entryFileNames: '[name].cjs',
-    chunksFileNames: '[name]-[hash].cjs',
+    chunkFileNames: '[name]-[hash].cjs',
     format: 'cjs',
     name: 'Fs',
   }],

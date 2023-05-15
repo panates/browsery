@@ -29,7 +29,7 @@ export default {
   output: [{
     dir: path.resolve(targetPath, 'esm'),
     entryFileNames: '[name].mjs',
-    chunksFileNames: '[name]-[hash].mjs',
+    chunkFileNames: '[name]-[hash].mjs',
     format: 'esm',
     name: 'Stream',
     manualChunks: manualChunksResolver({
@@ -38,7 +38,7 @@ export default {
   }, {
     dir: path.resolve(targetPath, 'cjs'),
     entryFileNames: '[name].cjs',
-    chunksFileNames: '[name]-[hash].cjs',
+    chunkFileNames: '[name]-[hash].cjs',
     format: 'cjs',
     name: 'Stream',
     manualChunks: manualChunksResolver({
