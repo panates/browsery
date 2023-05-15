@@ -31,6 +31,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].mjs',
+      chunksFileNames: '[name]-[hash].mjs',
       format: 'esm',
       name: 'Highland',
       manualChunks: manualChunksResolver({
@@ -41,6 +42,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].cjs',
+      chunksFileNames: '[name]-[hash].cjs',
       format: 'cjs',
       name: 'Highland',
       manualChunks: manualChunksResolver({

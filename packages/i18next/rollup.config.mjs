@@ -40,6 +40,7 @@ export default async () => {
       {
         dir: path.resolve(targetPath, 'esm'),
         entryFileNames: '[name].mjs',
+        chunksFileNames: '[name]-[hash].mjs',
         format: 'esm',
         name: 'I18next',
         intro,
@@ -51,6 +52,7 @@ export default async () => {
       {
         dir: path.resolve(targetPath, 'cjs'),
         entryFileNames: '[name].cjs',
+        chunksFileNames: '[name]-[hash].cjs',
         format: 'cjs',
         name: 'I18next',
         intro,

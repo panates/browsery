@@ -30,6 +30,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: 'index.mjs',
+      chunksFileNames: '[name]-[hash].mjs',
       format: 'esm',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -41,6 +42,7 @@ export default {
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: 'index.cjs',
+      chunksFileNames: '[name]-[hash].cjs',
       format: 'cjs',
       name: 'Antlr4',
       manualChunks: manualChunksResolver({
@@ -78,6 +80,11 @@ function runCommands() {
     async () => {
       const json = filterDependencies(pkgJson, external);
       await fs.writeFile(path.join(targetPath, 'package.json'), JSON.stringify(json, undefined, 2), 'utf-8');
+    },
+    // Copy package.json -> cjs
+    async () => {
+      const json = {'type': 'commonjs'};
+      await fs.writeFile(path.join(targetPath, 'cjs', 'package.json'), JSON.stringify(json, undefined, 2), 'utf-8');
     },
     // Copy README.md
     () => copyTextFile(
