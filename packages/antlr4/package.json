@@ -29,7 +29,7 @@
     }
   },
   "dependencies": {
-    "@browsery/fs": "*"
+    "@browsery/fs": "^0.4.0"
   },
   "devDependencies": {
     "antlr4": "^4.12.0"
