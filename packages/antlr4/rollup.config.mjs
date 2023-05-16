@@ -3,6 +3,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import {createRequire} from 'module';
 import {fileURLToPath} from 'node:url';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
 import inject from '@rollup/plugin-inject';
 import nodeResolve from '@rollup/plugin-node-resolve';
@@ -55,6 +56,11 @@ export default {
   external,
   plugins: [
     clean(targetPath),
+    alias({
+      entries: [
+        {find: 'fs', replacement: '@browsery/fs'}
+      ]
+    }),
     commonjs(),
     strip(),
     filesize(),

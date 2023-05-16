@@ -28,6 +28,9 @@
       "default": "./esm/index.mjs"
     }
   },
+  "dependencies": {
+    "@browsery/fs": "*"
+  },
   "devDependencies": {
     "antlr4": "^4.12.0"
   },
