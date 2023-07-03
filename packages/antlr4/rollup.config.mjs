@@ -94,7 +94,7 @@ function runCommands() {
     },
     // Copy README.md
     () => copyTextFile(
-        require.resolve('antlr4/README.md'),
+        path.resolve(path.dirname(require.resolve('antlr4')), '../README.md'),
         path.join(targetPath, 'README.md'),
         (content) =>
             `# @browsery/antlr4
@@ -102,16 +102,15 @@ Browser compatible antlr4!
 
 This module bundles [antlr4](https://www.npmjs.com/package/antlr4) module for browsers!
 
-` +
-            content),
-    // Copy LICENSE from readable-stream
+` + content),
+    // Copy LICENSE
     () => copyFiles(
-        path.dirname(require.resolve('antlr4/package.json')),
+        path.resolve('..', path.dirname(require.resolve('antlr4'))),
         ['LICENSE', '!node_modules/**'],
         targetPath),
-    // Copy typings from @types/readable-stream
+    // Copy typings
     () => copyFiles(
-        path.join(path.dirname(require.resolve('antlr4/package.json')), 'src/antlr4'),
+        path.resolve(path.dirname(require.resolve('antlr4')), '../src/antlr4'),
         ['**/*.d.ts', '!node_modules/**'],
         path.join(targetPath, 'typings'))
   ], {once: true, exitOnFail: true});

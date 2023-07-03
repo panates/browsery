@@ -15,7 +15,7 @@ import DefaultStream, {
   pipeline,
   compose,
   promises,
-    Stream
+  Stream
 } from 'readable-stream';
 
 export default DefaultStream;
