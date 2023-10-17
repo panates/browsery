@@ -21,11 +21,15 @@ import mime from 'mime';
  */
 
 export default typeOfRequest;
+typeOfRequest.is = typeis;
+typeOfRequest.hasBody = hasBody;
+typeOfRequest.normalize = normalize;
+typeOfRequest.mimeMatch = mimeMatch;
 export {
   typeis as is,
   hasBody,
   normalize,
-  mimeMatch as match
+  mimeMatch
 };
 
 /**
