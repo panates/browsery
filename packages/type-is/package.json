@@ -1,35 +1,32 @@
 {
-  "name": "@browsery/i18next",
-  "version": "0.6.0",
-  "description": "Browser compatible i18next module",
+  "name": "@browsery/type-is",
+  "version": "0.5.0",
+  "description": "Browser compatible type-is module",
   "author": "Panates",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/i18next"
+    "directory": "packages/type-is"
   },
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/i18next"
+    "clean": "rimraf ../../build/type-is"
   },
   "type": "module",
   "module": "./esm/index.mjs",
   "main": "./cjs/index.cjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/index.cjs",
-      "default": "./esm/index.mjs"
-    }
+  "dependencies": {
+    "media-typer": "^1.1.0",
+    "mime": "^3.0.0"
   },
   "devDependencies": {
-    "i18next": "^23.5.1"
+    "@types/media-typer": "^1.1.1",
+    "@types/mime": "^3.0.2",
+    "type-is": "^1.6.18"
   },
   "sideEffects": false,
   "files": [
@@ -40,8 +37,8 @@
     "README.md"
   ],
   "keywords": [
-    "i18next",
-    "i18n",
+    "type-is",
+    "mime",
     "browser",
     "browsery",
     "browserify"

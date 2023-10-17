@@ -32,7 +32,7 @@
     "@browsery/fs": "^0.4.0"
   },
   "devDependencies": {
-    "antlr4": "^4.13.0"
+    "antlr4": "^4.13.1"
   },
   "sideEffects": false,
   "files": [
