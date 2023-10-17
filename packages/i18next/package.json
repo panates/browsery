@@ -17,25 +17,17 @@
   "type": "module",
   "module": "./esm/index.mjs",
   "main": "./cjs/index.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/index.cjs",
-      "default": "./esm/index.mjs"
-    }
-  },
+  "types": "./index.d.ts",
+  "typings": "./index.d.ts",
   "devDependencies": {
     "i18next": "^23.5.1"
   },
   "sideEffects": false,
   "files": [
-    "typings/",
+    "typescript/",
     "cjs/",
     "esm/",
+    "index.d.ts",
     "LICENSE",
     "README.md"
   ],
