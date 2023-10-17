@@ -1,6 +1,6 @@
 {
   "name": "@browsery/i18next",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Browser compatible i18next module",
   "author": "Panates",
   "license": "MIT",
