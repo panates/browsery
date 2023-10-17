@@ -4,7 +4,6 @@ import fsp from 'fs/promises';
 import {pipeline} from 'stream/promises';
 import {fileURLToPath} from 'node:url';
 import StreamZip from 'node-stream-zip';
-import {rimraf} from 'rimraf';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -13,10 +12,8 @@ const downloadFile = async (url, path) => pipeline(
 
 export async function downloadI18next() {
   const tmpDir = path.resolve(dirname, '../tmp');
-  const srcDir = path.resolve(tmpDir, 'src');
 
-  await rimraf(srcDir);
-  await fsp.mkdir(srcDir, {recursive: true});
+  await fsp.mkdir(tmpDir, {recursive: true});
 
   const zipFile = path.join(tmpDir, 'master.zip');
   await downloadFile('https://github.com/i18next/i18next/archive/refs/heads/master.zip', zipFile);
@@ -24,16 +21,18 @@ export async function downloadI18next() {
   const zip = new StreamZip.async({file: zipFile});
   const entries = await zip.entries();
   for (const entry of Object.values(entries)) {
-    console.log(entry.name);
-    if (entry.isDirectory)
+    if (entry.isDirectory || !entry.name.startsWith('i18next-master/'))
       continue;
-    const m = /^i18next-master\/src\/(.*)/.exec(entry.name) ||
-        /^i18next-master\/(package\.json)$/.exec(entry.name) ||
-        /^i18next-master\/(LICENSE)$/.exec(entry.name) ||
-        /^i18next-master\/(index.d.ts)$/.exec(entry.name);
-    if (!m)
-      continue;
-    await zip.extract(entry, path.join(srcDir, m[1]));
+    const name = entry.name.substring(entry.name.indexOf('/') + 1);
+    console.log(name);
+    if (name.startsWith('src/') || name.startsWith('typescript/') ||
+        name === 'package.json' || name === 'LICENSE' || name === 'index.d.ts'
+    ) {
+      const filename = path.join(tmpDir, name);
+      await fsp.mkdir(path.dirname(filename), {recursive: true});
+      console.log(entry.name + ' -> ' + path.join(tmpDir, name));
+      await zip.extract(entry, path.join(tmpDir, name));
+    }
   }
   await zip.close();
 }

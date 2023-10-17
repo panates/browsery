@@ -117,13 +117,13 @@ This module bundles [i18next](https://www.npmjs.com/package/i18next) module for 
             content),
     // Copy LICENSE from readable-stream
     () => copyFiles(
-        path.resolve(dirname, 'tmp/src'),
-        ['LICENSE', '!node_modules/**'],
+        path.resolve(dirname, 'tmp'),
+        ['LICENSE', 'index.d.ts', '!node_modules/**'],
         targetPath),
     // Copy typings from @types/readable-stream
     () => copyFiles(
-        path.resolve(dirname, 'tmp/src'),
+        path.resolve(dirname, 'tmp/typescript'),
         ['**/*.d.ts', '!node_modules/**'],
-        path.join(targetPath, 'typings'))
+        path.join(targetPath, 'typescript'))
   ], {once: true, exitOnFail: true});
 }
