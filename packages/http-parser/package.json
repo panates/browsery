@@ -1,6 +1,6 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.4.0",
+  "version": "0.5.8",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
   "license": "MIT",
@@ -19,15 +19,6 @@
   "main": "./cjs/http-parser.cjs",
   "types": "./typings/http-parser.d.ts",
   "typings": "./typings/http-parser.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/http-parser.cjs",
-      "default": "./esm/http-parser.mjs"
-    }
-  },
   "devDependencies": {
     "http-parser-js": "^0.5.8"
   },

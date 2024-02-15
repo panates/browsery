@@ -1,6 +1,6 @@
 {
   "name": "@browsery/highland",
-  "version": "0.6.0",
+  "version": "2.13.5",
   "description": "Browser compatible highland module",
   "author": "Panates",
   "license": "MIT",
@@ -19,15 +19,6 @@
   "main": "./cjs/index.cjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/index.cjs",
-      "default": "./esm/index.mjs"
-    }
-  },
   "dependencies": {
     "@browsery/stream": "^0.6.0",
     "@browsery/util": "^0.4.0",

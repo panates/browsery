@@ -1,6 +1,6 @@
 {
   "name": "@browsery/util",
-  "version": "0.4.0",
+  "version": "0.12.5",
   "description": "Browser compatible NodeJS util module",
   "author": "Panates",
   "license": "MIT",
@@ -17,15 +17,6 @@
   "type": "module",
   "module": "./esm/util.mjs",
   "main": "./cjs/util.cjs",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/util.cjs",
-      "default": "./esm/util.mjs"
-    }
-  },
   "dependencies": {
     "process": "^0.11.10"
   },
