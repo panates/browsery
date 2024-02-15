@@ -19,20 +19,11 @@
   "main": "./cjs/index.cjs",
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "require": "./cjs/index.cjs",
-      "default": "./esm/index.mjs"
-    }
-  },
   "dependencies": {
     "@browsery/fs": "^0.4.0"
   },
   "devDependencies": {
-    "antlr4": "^4.13.1"
+    "antlr4": "^4.13.1-patch-1"
   },
   "sideEffects": false,
   "files": [
