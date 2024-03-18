@@ -20,7 +20,7 @@
   "types": "./index.d.ts",
   "typings": "./index.d.ts",
   "devDependencies": {
-    "i18next": "^23.8.2"
+    "i18next": "^23.10.1"
   },
   "sideEffects": false,
   "files": [

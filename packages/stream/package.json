@@ -28,7 +28,7 @@
     "string_decoder": "^1.3.0"
   },
   "devDependencies": {
-    "@types/readable-stream": "^4.0.10",
+    "@types/readable-stream": "^4.0.11",
     "readable-stream": "^4.3.0"
   },
   "sideEffects": false,
