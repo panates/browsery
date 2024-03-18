@@ -1,6 +1,6 @@
 {
   "name": "@browsery/type-is",
-  "version": "1.6.18",
+  "version": "1.6.18-r2",
   "description": "Browser compatible type-is module",
   "author": "Panates",
   "license": "MIT",
@@ -20,8 +20,7 @@
   "types": "./typings/index.d.ts",
   "typings": "./typings/index.d.ts",
   "dependencies": {
-    "media-typer": "^1.1.0",
-    "mime": "^4.0.1"
+    "media-typer": "^1.1.0"
   },
   "devDependencies": {
     "@types/media-typer": "^1.1.3",
