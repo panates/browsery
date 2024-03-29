@@ -25,12 +25,6 @@ typeOfRequest.is = typeis;
 typeOfRequest.hasBody = hasBody;
 typeOfRequest.normalize = normalize;
 typeOfRequest.mimeMatch = mimeMatch;
-export {
-  typeis as is,
-  hasBody,
-  normalize,
-  mimeMatch
-};
 
 /**
  * Compare a `value` content-type with `types`.
