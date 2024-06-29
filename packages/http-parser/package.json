@@ -10,7 +10,7 @@
     "directory": "packages/http-parser"
   },
   "scripts": {
-    "prebuild": "npm run clean",
+    "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
     "clean": "rimraf ../../build/http-parser",
     "lint": "eslint '**/*.{js,mjs,cjs}' --max-warnings=0 --fix"
