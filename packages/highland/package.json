@@ -12,7 +12,8 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/highland"
+    "clean": "rimraf ../../build/highland",
+    "lint": "eslint '**/*.{js,mjs,cjs}' --max-warnings=0 --fix"
   },
   "type": "module",
   "module": "./esm/index.mjs",

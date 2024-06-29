@@ -12,7 +12,8 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/fs"
+    "clean": "rimraf ../../build/fs",
+    "lint": "eslint '**/*.{js,mjs,cjs}' --max-warnings=0 --fix"
   },
   "type": "module",
   "module": "./esm/fs.mjs",

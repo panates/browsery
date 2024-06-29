@@ -12,7 +12,8 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/type-is"
+    "clean": "rimraf ../../build/type-is",
+    "lint": "eslint '**/*.{js,mjs,cjs}' --max-warnings=0 --fix"
   },
   "type": "module",
   "module": "./esm/index.mjs",
@@ -24,8 +25,8 @@
   },
   "devDependencies": {
     "@types/media-typer": "^1.1.3",
-    "@types/mime": "^3.0.4",
-    "mime": "^4.0.1",
+    "@types/mime": "^4.0.0",
+    "mime": "^4.0.3",
     "type-is": "^1.6.18"
   },
   "sideEffects": false,

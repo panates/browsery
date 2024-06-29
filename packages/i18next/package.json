@@ -12,7 +12,8 @@
   "scripts": {
     "prebuild": "npm run clean",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/i18next"
+    "clean": "rimraf ../../build/i18next",
+    "lint": "eslint '**/*.{js,mjs,cjs}' --max-warnings=0 --fix"
   },
   "type": "module",
   "module": "./esm/index.mjs",
@@ -20,7 +21,7 @@
   "types": "./index.d.ts",
   "typings": "./index.d.ts",
   "devDependencies": {
-    "i18next": "^23.10.1"
+    "i18next": "^23.11.5"
   },
   "sideEffects": false,
   "files": [

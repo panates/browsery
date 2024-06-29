@@ -1,4 +1,4 @@
-/*!
+/* !
  * type-is
  * Copyright(c) 2014 Jonathan Ong
  * Copyright(c) 2014-2015 Douglas Christopher Wilson
@@ -67,10 +67,8 @@ function typeis(value, types_) {
 
   let type;
   for (i = 0; i < types.length; i++) {
-    if (mimeMatch(normalize(type = types[i]), val)) {
-      return type[0] === '+' || type.indexOf('*') !== -1
-          ? val
-          : type;
+    if (mimeMatch(normalize((type = types[i])), val)) {
+      return type[0] === '+' || type.indexOf('*') !== -1 ? val : type;
     }
   }
 
@@ -90,8 +88,10 @@ function typeis(value, types_) {
  */
 
 function hasBody(request) {
-  return request.headers['transfer-encoding'] !== undefined ||
-      !isNaN(request.headers['content-length']);
+  return (
+    request.headers['transfer-encoding'] !== undefined ||
+    !isNaN(request.headers['content-length'])
+  );
 }
 
 /**
@@ -171,6 +171,8 @@ function normalize(type) {
       return 'application/x-www-form-urlencoded';
     case 'multipart':
       return 'multipart/*';
+    default:
+      break;
   }
 
   if (type[0] === '+') {
@@ -179,8 +181,8 @@ function normalize(type) {
   }
 
   return type.indexOf('/') === -1
-      ? mime.getType(type) || 'application/octet-stream'
-      : type;
+    ? mime.getType(type) || 'application/octet-stream'
+    : type;
 }
 
 /**
@@ -216,9 +218,11 @@ function mimeMatch(expected, actual) {
 
   // validate suffix wildcard
   if (expectedParts[1].substr(0, 2) === '*+') {
-    return expectedParts[1].length <= actualParts[1].length + 1 &&
-        expectedParts[1].substr(1) ===
-        actualParts[1].substr(1 - expectedParts[1].length);
+    return (
+      expectedParts[1].length <= actualParts[1].length + 1 &&
+      expectedParts[1].substr(1) ===
+        actualParts[1].substr(1 - expectedParts[1].length)
+    );
   }
 
   // validate subtype

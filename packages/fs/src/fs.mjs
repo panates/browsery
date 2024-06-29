@@ -1,7 +1,7 @@
 function panic(api) {
-  return function() {
+  return function () {
     throw new Error(`fs.${api} is not implemented in browser`);
-  }
+  };
 }
 
 const fsFuncs = [
@@ -118,7 +118,7 @@ const promiseFuncs = [
   'mkdtemp',
   'writeFile',
   'appendFile',
-  'readFile'
+  'readFile',
 ];
 
 const fs = {
@@ -181,12 +181,14 @@ const fs = {
     UV_FS_COPYFILE_FICLONE: 2,
     COPYFILE_FICLONE: 2,
     UV_FS_COPYFILE_FICLONE_FORCE: 4,
-    COPYFILE_FICLONE_FORCE: 4
+    COPYFILE_FICLONE_FORCE: 4,
   },
-  promises: {}
+  promises: {},
 };
 
-let i, ii, n;
+let i;
+let ii;
+let n;
 for (i = 0, ii = fsFuncs.length; i < ii; i++) {
   n = fsFuncs[i];
   fs[n] = panic(n);

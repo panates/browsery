@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "env": {
+    "jest": true
+  },
+  "extends": [
+    "@panates/eslint-config/node"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.mjs"],
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "requireConfigFile": false,
+        "babelOptions": {
+          "babelrc": false,
+          "configFile": false
+        }
+      }
+    }
+  ],
+  "rules": {
+    "import-x/no-extraneous-dependencies": "off"
+  }
+}
