@@ -4,7 +4,7 @@ const localNameRegex = /\/browsery\/build\/([^\/]*)/;
 const moduleNameRegex = /\/node_modules\/([^\/]*)/;
 const commonjsExternalRegex = /([^?]*)\?commonjs-external$/;
 
-export function manualChunksResolver({external, exclude}) {
+export function manualChunksResolver({ external, exclude }) {
   let i = 0;
   const logged = [];
   external = external || [];
@@ -17,24 +17,23 @@ export function manualChunksResolver({external, exclude}) {
     let m;
     let name = (m = localNameRegex.exec(id)) && '@opra/' + m[1];
     if (!name)
-      name = (m = moduleNameRegex.exec(id) || commonjsExternalRegex.exec(id)) && m[1];
+      name =
+        (m = moduleNameRegex.exec(id) || commonjsExternalRegex.exec(id)) &&
+        m[1];
     if (name) {
       const isLogged = logged.includes(name);
       logged.push(name);
 
       if (external && external.includes(name)) {
-        if (!isLogged)
-          console.log(chalk.greenBright('External:'), name);
+        if (!isLogged) console.log(chalk.greenBright('External:'), name);
         return;
       }
 
       if (!excludeAll.includes(name)) {
-        if (!isLogged)
-          console.log(chalk.yellowBright('Chunked:'), name);
+        if (!isLogged) console.log(chalk.yellowBright('Chunked:'), name);
         return name;
       }
-      if (!isLogged)
-        console.log(chalk.magentaBright('Bundled:'), name);
+      if (!isLogged) console.log(chalk.magentaBright('Bundled:'), name);
       return;
     }
     console.log(chalk.magentaBright('Bundled:'), id);
@@ -42,7 +41,6 @@ export function manualChunksResolver({external, exclude}) {
 }
 
 function trimZeroChars(str) {
-  while (str && str.charCodeAt(0) === 0)
-    str = str.substring(1);
+  while (str && str.charCodeAt(0) === 0) str = str.substring(1);
   return str;
 }
