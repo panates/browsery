@@ -3,7 +3,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
-import chalk from 'chalk';
+import colors from 'ansi-colors';
 import fs from 'fs/promises';
 import { createRequire } from 'module';
 import path from 'path';
@@ -59,7 +59,7 @@ export default {
     ) {
       return;
     }
-    console.warn(chalk.yellow(`(!) ${warning.message}`));
+    console.warn(colors.yellow(`(!) ${warning.message}`));
   },
 };
 
@@ -90,12 +90,12 @@ This module bundles [type-is](https://www.npmjs.com/package/type-is) module for 
         ),
       // Copy LICENSE from readable-stream
       () => copyFiles(dirname, ['LICENSE', '!node_modules/**'], targetPath),
-      // Copy typings from @types/readable-stream
+      // Copy types from @types/readable-stream
       () =>
         copyFiles(
           path.join(dirname, 'lib'),
           ['*.d.ts'],
-          path.join(targetPath, 'typings'),
+          path.join(targetPath, 'types'),
         ),
     ],
     { once: true, exitOnFail: true },

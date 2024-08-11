@@ -4,7 +4,7 @@ import inject from '@rollup/plugin-inject';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
-import chalk from 'chalk';
+import colors from 'ansi-colors';
 import fs from 'fs/promises';
 import { createRequire } from 'module';
 import path from 'path';
@@ -61,7 +61,7 @@ export default {
     ) {
       return;
     }
-    console.warn(chalk.yellow(`(!) ${warning.message}`));
+    console.warn(colors.yellow(`(!) ${warning.message}`));
   },
 };
 
@@ -97,11 +97,11 @@ This module bundles [util](https://www.npmjs.com/package/util) module for browse
           ['LICENSE', '!node_modules/**'],
           targetPath,
         ),
-      // Copy typings from @types/util
+      // Copy types from @types/util
       // () => copyFiles(
       //     path.dirname(require.resolve('@types/readable-stream/package.json')),
       //     ['**/*.d.ts', '!node_modules/**'],
-      //     path.join(targetPath, 'typings'))
+      //     path.join(targetPath, 'types'))
     ],
     { once: true, exitOnFail: true },
   );

@@ -1,14 +1,9 @@
 {
   "name": "@browsery/stream",
-  "version": "4.3.0",
+  "version": "4.3.0-r2",
   "description": "Browser compatible NodeJS stream module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/stream"
-  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,11 +12,6 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/stream.mjs",
-  "main": "./cjs/stream.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
   "dependencies": {
     "abort-controller": "^3.0.0",
     "buffer": "^6.0.3",
@@ -34,11 +24,26 @@
     "@types/readable-stream": "^4.0.15",
     "readable-stream": "^4.3.0"
   },
+  "main": "./cjs/stream.cjs",
+  "module": "./esm/stream.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/stream.cjs",
+      "import": "./esm/stream.mjs",
+      "types": "./types/index.d.ts"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/stream"
+  },
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
+    "types/",
     "LICENSE",
     "README.md"
   ],

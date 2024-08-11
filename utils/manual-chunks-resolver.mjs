@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import colors from 'ansi-colors';
 
 const localNameRegex = /\/browsery\/build\/([^\/]*)/;
 const moduleNameRegex = /\/node_modules\/([^\/]*)/;
@@ -12,7 +12,7 @@ export function manualChunksResolver({ external, exclude }) {
   const excludeAll = [...exclude, external];
   return function manualChunks(id) {
     if (!i++)
-      console.log(chalk.yellow.bold('======= Processed Packages ====='));
+      console.log(colors.yellow.bold('======= Processed Packages ====='));
     id = trimZeroChars(id);
     let m;
     let name = (m = localNameRegex.exec(id)) && '@opra/' + m[1];
@@ -25,18 +25,18 @@ export function manualChunksResolver({ external, exclude }) {
       logged.push(name);
 
       if (external && external.includes(name)) {
-        if (!isLogged) console.log(chalk.greenBright('External:'), name);
+        if (!isLogged) console.log(colors.greenBright('External:'), name);
         return;
       }
 
       if (!excludeAll.includes(name)) {
-        if (!isLogged) console.log(chalk.yellowBright('Chunked:'), name);
+        if (!isLogged) console.log(colors.yellowBright('Chunked:'), name);
         return name;
       }
-      if (!isLogged) console.log(chalk.magentaBright('Bundled:'), name);
+      if (!isLogged) console.log(colors.magentaBright('Bundled:'), name);
       return;
     }
-    console.log(chalk.magentaBright('Bundled:'), id);
+    console.log(colors.magentaBright('Bundled:'), id);
   };
 }
 

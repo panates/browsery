@@ -1,14 +1,9 @@
 {
   "name": "@browsery/i18next",
-  "version": "23.11.5",
+  "version": "23.12.2",
   "description": "Browser compatible i18next module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/i18next"
-  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,15 +12,25 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/index.mjs",
-  "main": "./cjs/index.cjs",
-  "types": "./index.d.ts",
-  "typings": "./index.d.ts",
   "devDependencies": {
     "i18next": "^23.12.2"
   },
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.mjs",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.cjs",
+      "import": "./esm/index.mjs",
+      "types": "./index.d.ts"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/i18next"
+  },
   "files": [
     "typescript/",
     "cjs/",

@@ -4,7 +4,7 @@ import inject from '@rollup/plugin-inject';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
-import chalk from 'chalk';
+import colors from 'ansi-colors';
 import fs from 'fs/promises';
 import { createRequire } from 'module';
 import path from 'path';
@@ -96,7 +96,7 @@ export default async () => {
       ) {
         return;
       }
-      console.warn(chalk.yellow(`(!) ${warning.message}`));
+      console.warn(colors.yellow(`(!) ${warning.message}`));
     },
   };
 };

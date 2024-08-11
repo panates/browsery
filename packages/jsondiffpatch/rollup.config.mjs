@@ -4,15 +4,15 @@ import inject from '@rollup/plugin-inject';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
-import chalk from 'chalk';
-import fs from 'fs/promises';
+import colors from 'ansi-colors';
+import glob from 'fast-glob';
+import fs from 'fs';
 import { createRequire } from 'module';
 import path from 'path';
 import command from 'rollup-plugin-command';
 import filesize from 'rollup-plugin-filesize';
 import { copyFiles } from '../../utils/copy-files.mjs';
 import { filterDependencies } from '../../utils/filter-dependencies.js';
-import { manualChunksResolver } from '../../utils/manual-chunks-resolver.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,55 +21,61 @@ const targetPath = path.resolve(buildPath, 'jsondiffpatch');
 const pkgJson = require('./package.json');
 
 const external = Object.keys(pkgJson.dependencies);
+const srcPath = path.dirname(require.resolve('jsondiffpatch'));
+
+const buildTargetCfg = (format, override) => ({
+  dir: path.resolve(targetPath, format),
+  entryFileNames: '[name].' + (format === 'esm' ? 'mjs' : 'cjs'),
+  chunkFileNames: '[name].' + (format === 'esm' ? 'mjs' : 'cjs'),
+  format,
+  name: 'jsondiffpatch',
+  exports: 'named',
+  ...override,
+});
+
+function runCommands() {
+  return command(
+    [
+      // Copy package.json
+      async () => {
+        const json = filterDependencies(pkgJson, external);
+        fs.writeFileSync(
+          path.join(targetPath, 'package.json'),
+          JSON.stringify(json, undefined, 2),
+          'utf-8',
+        );
+      },
+      () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'esm')),
+      () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'cjs')),
+      () => copyFiles(srcPath, ['**/*.d.ts'], path.join(targetPath, 'types')),
+    ],
+    { once: true, exitOnFail: true },
+  );
+}
 
 export default {
-  input: [
-    path.join(
-      path.dirname(require.resolve('jsondiffpatch')),
-      '../lib/index.js',
+  input: {
+    index: path.join(srcPath, './index.js'),
+    'with-text-diffs': path.join(srcPath, './with-text-diffs.js'),
+    ...Object.fromEntries(
+      glob
+        .sync(
+          ['./contexts/**/*.js', './filters/**/*.js', './formatters/**/*.js'],
+          { cwd: srcPath },
+        )
+        .map(file => [
+          // This remove `src/` as well as the file extension from each
+          // file, so e.g. src/nested/foo.js becomes nested/foo
+          file.slice(2, file.length - path.extname(file).length),
+          // This expands the relative paths to absolute paths, so e.g.
+          // src/nested/foo becomes /project/src/nested/foo.js
+          path.join(srcPath, file),
+        ]),
     ),
-  ],
-  output: [
-    {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
-      format: 'esm',
-      name: 'jsondiffpatch',
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['jsondiffpatch'],
-      }),
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
-      name: 'jsondiffpatch',
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['jsondiffpatch'],
-      }),
-    },
-  ],
+  },
+  output: [buildTargetCfg('esm'), buildTargetCfg('cjs')],
   external,
   plugins: [
-    // {
-    //   transform(code) {
-    //     if (code.includes('\'stream\'')) {
-    //       code =
-    //           code.replaceAll(/require\('stream'\)/g, 'require(\'@browsery/stream\')');
-    //     }
-    //     return code;
-    //   }
-    // },
-    // alias({
-    //   entries: [
-    //     { find: 'stream', replacement: '@browsery/stream' },
-    //     { find: 'util', replacement: '@browsery/util' },
-    //   ],
-    // }),
     clean(targetPath),
     commonjs(),
     strip(),
@@ -89,30 +95,6 @@ export default {
     ) {
       return;
     }
-    console.warn(chalk.yellow(`(!) ${warning.message}`));
+    console.warn(colors.yellow(`(!) ${warning.message}`));
   },
 };
-
-function runCommands() {
-  return command(
-    [
-      // Copy package.json
-      async () => {
-        const json = filterDependencies(pkgJson, external);
-        await fs.writeFile(
-          path.join(targetPath, 'package.json'),
-          JSON.stringify(json, undefined, 2),
-          'utf-8',
-        );
-      },
-      // Copy typings from @types/readable-stream
-      () =>
-        copyFiles(
-          path.dirname(require.resolve('jsondiffpatch')),
-          ['**/*.d.ts'],
-          path.join(targetPath, 'typings'),
-        ),
-    ],
-    { once: true, exitOnFail: true },
-  );
-}

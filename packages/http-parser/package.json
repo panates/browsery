@@ -1,14 +1,9 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.5.8",
+  "version": "0.5.8-r2",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/http-parser"
-  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,19 +12,29 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/http-parser.mjs",
-  "main": "./cjs/http-parser.cjs",
-  "types": "./typings/http-parser.d.ts",
-  "typings": "./typings/http-parser.d.ts",
   "devDependencies": {
     "http-parser-js": "^0.5.8"
   },
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.cjs",
+      "import": "./esm/index.mjs",
+      "types": "./types/http-parser.d.ts"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/http-parser"
+  },
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
+    "types/",
     "LICENSE",
     "README.md"
   ],

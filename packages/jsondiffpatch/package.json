@@ -1,6 +1,6 @@
 {
   "name": "@browsery/jsondiffpatch",
-  "version": "0.6.0",
+  "version": "0.6.0-r2",
   "description": "Browser compatible jsondiffpatch",
   "author": "Panates",
   "license": "MIT",
@@ -17,27 +17,42 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/index.mjs",
   "main": "./cjs/index.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
+  "module": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.cjs",
+      "import": "./esm/index.mjs",
+      "types": "./types/index.d.ts"
+    },
+    "./with-text-diffs": {
+      "require": "./cjs/with-text-diffs.js",
+      "import": "./esm/with-text-diffs.mjs",
+      "types": "./types/with-text-diffs.d.ts"
+    },
+    "./formatters/*": {
+      "require": "./cjs/formatters/*.cjs",
+      "import": "./esm/formatters/*.mjs",
+      "types": "./types/formatters/*.d.ts"
+    }
+  },
   "dependencies": {
     "jsondiffpatch": "^0.6.0"
   },
   "sideEffects": false,
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
+    "types/",
     "LICENSE",
     "README.md"
   ],
   "keywords": [
-    "type-is",
-    "mime",
-    "browser",
-    "browsery",
-    "browserify"
+    "jsondiffpatch",
+    "jsonpatch",
+    "json",
+    "diff",
+    "patch"
   ]
 }

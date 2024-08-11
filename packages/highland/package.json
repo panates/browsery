@@ -1,14 +1,9 @@
 {
   "name": "@browsery/highland",
-  "version": "2.13.5",
+  "version": "2.13.5-r2",
   "description": "Browser compatible highland module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/highland"
-  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,11 +12,6 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/index.mjs",
-  "main": "./cjs/index.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
   "dependencies": {
     "@browsery/stream": "^4.3.0",
     "@browsery/util": "^0.12.5",
@@ -34,11 +24,26 @@
     "@types/highland": "^2.13.0",
     "highland": "^2.13.5"
   },
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.cjs",
+      "import": "./esm/index.mjs",
+      "types": "./types/index.d.ts"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/highland"
+  },
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
+    "types/",
     "LICENSE",
     "README.md"
   ],

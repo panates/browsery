@@ -1,14 +1,12 @@
 {
   "name": "@browsery/fs",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Browser compatible NodeJS fs module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/fs"
-  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {},
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,17 +15,21 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/fs.mjs",
-  "main": "./cjs/fs.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
-  "dependencies": {},
-  "devDependencies": {},
-  "peerDependencies": {},
+  "main": "./cjs/fs.js",
+  "module": "./esm/fs.js",
+  "exports": {
+    ".": {
+      "require": "./cjs/fs.cjs",
+      "import": "./esm/fs.mjs"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/fs"
+  },
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
     "LICENSE",

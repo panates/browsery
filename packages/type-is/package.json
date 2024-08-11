@@ -1,14 +1,9 @@
 {
   "name": "@browsery/type-is",
-  "version": "1.6.18-r4",
+  "version": "1.6.18-r5",
   "description": "Browser compatible type-is module",
   "author": "Panates",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/type-is"
-  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -17,11 +12,6 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "type": "module",
-  "module": "./esm/index.mjs",
-  "main": "./cjs/index.cjs",
-  "types": "./typings/index.d.ts",
-  "typings": "./typings/index.d.ts",
   "dependencies": {
     "media-typer": "^1.1.0"
   },
@@ -30,11 +20,26 @@
     "mime": "^4.0.4",
     "type-is": "^1.6.18"
   },
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./cjs/index.cjs",
+      "import": "./esm/index.mjs",
+      "types": "./types/index.d.ts"
+    }
+  },
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panates/browsery.git",
+    "directory": "packages/type-is"
+  },
   "files": [
-    "typings/",
     "cjs/",
     "esm/",
+    "types/",
     "LICENSE",
     "README.md"
   ],
