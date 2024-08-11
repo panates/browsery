@@ -1,6 +1,6 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.5.8-r2",
+  "version": "0.5.9-r1",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
   "license": "MIT",

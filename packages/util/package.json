@@ -1,6 +1,6 @@
 {
   "name": "@browsery/util",
-  "version": "0.12.5-r2",
+  "version": "0.12.6-r1",
   "description": "Browser compatible NodeJS util module",
   "author": "Panates",
   "license": "MIT",

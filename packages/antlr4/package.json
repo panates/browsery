@@ -1,6 +1,6 @@
 {
   "name": "@browsery/antlr4",
-  "version": "4.13.2",
+  "version": "4.13.3-r1",
   "description": "Browser compatible antlr4 module",
   "author": "Panates",
   "license": "MIT",
