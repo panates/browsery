@@ -1,6 +1,6 @@
 {
   "name": "@browsery/type-is",
-  "version": "1.6.18-r5",
+  "version": "1.6.18-r6",
   "description": "Browser compatible type-is module",
   "author": "Panates",
   "license": "MIT",
@@ -20,16 +20,24 @@
     "mime": "^4.0.4",
     "type-is": "^1.6.18"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./esm/index.mjs"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./cjs/index.cjs"
+      },
+      "default": "./esm/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "./cjs/index.cjs",
   "module": "./esm/index.mjs",
   "types": "./types/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./cjs/index.cjs",
-      "import": "./esm/index.mjs",
-      "types": "./types/index.d.ts"
-    }
-  },
   "sideEffects": false,
   "repository": {
     "type": "git",

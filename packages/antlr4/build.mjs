@@ -7,27 +7,42 @@ import { copyFiles } from '../../utils/copy-files.mjs';
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const buildPath = path.resolve(dirname, '../../build');
+const sourcePath = path.resolve(path.dirname(require.resolve('antlr4')), '..');
 const targetPath = path.resolve(buildPath, 'antlr4');
 const pkgJson = require('./package.json');
 
 async function run() {
-  pkgJson.types = './types/index.d.ts';
-  pkgJson.types = './types/index.d.ts';
-  pkgJson.exports['.'].types = './types/index.d.ts';
+  await copyFiles(sourcePath, ['README.md'], targetPath);
   await copyFiles(
-    path.dirname(require.resolve('antlr4')),
-    ['**', '!node_modules/**'],
-    path.join(targetPath, 'dist'),
-  );
-  await copyFiles(
-    path.resolve('..', path.dirname(require.resolve('antlr4'))),
-    ['README.md'],
-    targetPath,
-  );
-  await copyFiles(
-    path.resolve(path.dirname(require.resolve('antlr4')), '../src/antlr4'),
+    path.resolve(sourcePath, 'src/antlr4'),
     ['**/*.d.{ts,?ts}'],
     path.join(targetPath, 'types'),
+  );
+  fs.mkdirSync(path.resolve(targetPath, 'cjs'), { recursive: true });
+  fs.copyFileSync(
+    path.resolve(sourcePath, './dist/antlr4.node.cjs'),
+    path.resolve(targetPath, './cjs/antlr4.node.cjs'),
+  );
+  fs.copyFileSync(
+    path.resolve(sourcePath, './dist/antlr4.web.cjs'),
+    path.resolve(targetPath, './cjs/antlr4.web.cjs'),
+  );
+  fs.copyFileSync(
+    path.resolve(dirname, '../../support/package.cjs.json'),
+    path.resolve(targetPath, './cjs/package.json'),
+  );
+  fs.mkdirSync(path.resolve(targetPath, 'esm'), { recursive: true });
+  fs.copyFileSync(
+    path.resolve(sourcePath, './dist/antlr4.node.mjs'),
+    path.resolve(targetPath, './esm/antlr4.node.mjs'),
+  );
+  fs.copyFileSync(
+    path.resolve(sourcePath, './dist/antlr4.web.mjs'),
+    path.resolve(targetPath, './esm/antlr4.web.mjs'),
+  );
+  fs.copyFileSync(
+    path.resolve(dirname, '../../support/package.esm.json'),
+    path.resolve(targetPath, './esm/package.json'),
   );
   fs.writeFileSync(
     path.join(targetPath, 'package.json'),

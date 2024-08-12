@@ -5,7 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
 import colors from 'ansi-colors';
-import fs from 'fs/promises';
+import fs from 'fs';
 import { createRequire } from 'module';
 import path from 'path';
 import command from 'rollup-plugin-command';
@@ -107,7 +107,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFile(
+        await fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -137,6 +137,16 @@ This module bundles [i18next](https://www.npmjs.com/package/i18next) module for 
           path.resolve(dirname, 'tmp/typescript'),
           ['**/*.d.ts', '!node_modules/**'],
           path.join(targetPath, 'typescript'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.cjs.json'),
+          path.resolve(targetPath, './cjs/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.esm.json'),
+          path.resolve(targetPath, './esm/package.json'),
         ),
     ],
     {

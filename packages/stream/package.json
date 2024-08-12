@@ -1,6 +1,6 @@
 {
   "name": "@browsery/stream",
-  "version": "4.3.1-r1",
+  "version": "4.3.1-r2",
   "description": "Browser compatible NodeJS stream module",
   "author": "Panates",
   "license": "MIT",
@@ -24,16 +24,24 @@
     "@types/readable-stream": "^4.0.15",
     "readable-stream": "^4.3.0"
   },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./esm/stream.mjs"
+      },
+      "require": {
+        "types": "./types/index.d.ts",
+        "default": "./cjs/stream.cjs"
+      },
+      "default": "./esm/stream.mjs"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "./cjs/stream.cjs",
   "module": "./esm/stream.mjs",
   "types": "./types/index.d.ts",
-  "exports": {
-    ".": {
-      "require": "./cjs/stream.cjs",
-      "import": "./esm/stream.mjs",
-      "types": "./types/index.d.ts"
-    }
-  },
   "sideEffects": false,
   "repository": {
     "type": "git",

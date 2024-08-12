@@ -48,6 +48,16 @@ function runCommands() {
       () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'esm')),
       () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'cjs')),
       () => copyFiles(srcPath, ['**/*.d.ts'], path.join(targetPath, 'types')),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.cjs.json'),
+          path.resolve(targetPath, './cjs/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.esm.json'),
+          path.resolve(targetPath, './esm/package.json'),
+        ),
     ],
     { once: true, exitOnFail: true },
   );

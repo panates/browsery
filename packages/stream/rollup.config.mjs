@@ -5,7 +5,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
 import colors from 'ansi-colors';
-import fs from 'fs/promises';
+import fs from 'fs';
 import { createRequire } from 'module';
 import path from 'path';
 import command from 'rollup-plugin-command';
@@ -35,6 +35,7 @@ export default {
       manualChunks: manualChunksResolver({
         external,
       }),
+      exports: 'named',
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
@@ -45,6 +46,7 @@ export default {
       manualChunks: manualChunksResolver({
         external,
       }),
+      exports: 'named',
     },
   ],
   external,
@@ -89,7 +91,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFile(
+        await fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -121,6 +123,16 @@ This module bundles [readable-stream](https://www.npmjs.com/package/readable-str
           path.dirname(require.resolve('@types/readable-stream/package.json')),
           ['**/*.d.ts', '!node_modules/**'],
           path.join(targetPath, 'types'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.cjs.json'),
+          path.resolve(targetPath, './cjs/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, '../../support/package.esm.json'),
+          path.resolve(targetPath, './esm/package.json'),
         ),
     ],
     { once: true, exitOnFail: true },

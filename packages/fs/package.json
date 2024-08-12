@@ -1,6 +1,6 @@
 {
   "name": "@browsery/fs",
-  "version": "0.5.0",
+  "version": "0.5.1-r1",
   "description": "Browser compatible NodeJS fs module",
   "author": "Panates",
   "license": "MIT",
@@ -15,14 +15,15 @@
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
-  "main": "./cjs/fs.js",
-  "module": "./esm/fs.js",
+  "type": "module",
   "exports": {
     ".": {
       "require": "./cjs/fs.cjs",
       "import": "./esm/fs.mjs"
     }
   },
+  "main": "./cjs/fs.js",
+  "module": "./esm/fs.js",
   "sideEffects": false,
   "repository": {
     "type": "git",
