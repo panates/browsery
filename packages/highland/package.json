@@ -1,6 +1,6 @@
 {
   "name": "@browsery/highland",
-  "version": "2.13.6-r3",
+  "version": "2.13.6-r4",
   "description": "Browser compatible highland module",
   "author": "Panates",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "format": "prettier . --write --log-level=warn"
   },
   "dependencies": {
-    "@browsery/stream": "^4.3.1-r2",
+    "@browsery/stream": "^4.3.1-r3",
     "@browsery/util": "^0.12.6-r2",
     "events": "^3.3.0",
     "process": "^0.11.10",
@@ -32,7 +32,7 @@
         "default": "./esm/index.mjs"
       },
       "require": {
-        "types": "./types/index.d.ts",
+        "types": "./types/index.d.cts",
         "default": "./cjs/index.cjs"
       },
       "default": "./esm/index.mjs"

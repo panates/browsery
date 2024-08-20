@@ -54,15 +54,6 @@ export default {
   ],
   external,
   plugins: [
-    // {
-    //   transform(code) {
-    //     if (code.includes('\'stream\'')) {
-    //       code =
-    //           code.replaceAll(/require\('stream'\)/g, 'require(\'@browsery/stream\')');
-    //     }
-    //     return code;
-    //   }
-    // },
     alias({
       entries: [
         { find: 'stream', replacement: '@browsery/stream' },
@@ -140,6 +131,11 @@ This module bundles [highland](https://www.npmjs.com/package/highland) module fo
         fs.copyFileSync(
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
         ),
     ],
     { once: true, exitOnFail: true },

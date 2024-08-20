@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import commonjs from '@rollup/plugin-commonjs';
 import inject from '@rollup/plugin-inject';
@@ -6,9 +8,7 @@ import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
 import colors from 'ansi-colors';
 import glob from 'fast-glob';
-import fs from 'fs';
 import { createRequire } from 'module';
-import path from 'path';
 import command from 'rollup-plugin-command';
 import filesize from 'rollup-plugin-filesize';
 import { copyFiles } from '../../utils/copy-files.mjs';
@@ -58,6 +58,31 @@ function runCommands() {
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
         ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/with-text-diffs.d.ts'),
+          path.resolve(targetPath, './types/with-text-diffs.d.cts'),
+        ),
+      () => {
+        const files = glob.sync('./types/formatters/*.d.ts', {
+          cwd: targetPath,
+          absolute: true,
+        });
+        for (const file of files) {
+          fs.copyFileSync(
+            file,
+            path.join(
+              path.dirname(file),
+              path.basename(file, path.extname(file)) + '.cts',
+            ),
+          );
+        }
+      },
     ],
     { once: true, exitOnFail: true },
   );

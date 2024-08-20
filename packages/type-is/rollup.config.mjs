@@ -107,6 +107,11 @@ This module bundles [type-is](https://www.npmjs.com/package/type-is) module for 
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
         ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
+        ),
     ],
     { once: true, exitOnFail: true },
   );

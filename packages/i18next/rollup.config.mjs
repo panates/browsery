@@ -128,15 +128,15 @@ This module bundles [i18next](https://www.npmjs.com/package/i18next) module for 
       () =>
         copyFiles(
           path.resolve(dirname, 'tmp'),
-          ['LICENSE', 'index.d.ts', '!node_modules/**'],
+          ['LICENSE', '!node_modules/**'],
           targetPath,
         ),
       // Copy typings from @types/readable-stream
       () =>
         copyFiles(
-          path.resolve(dirname, 'tmp/typescript'),
+          path.resolve(dirname, 'tmp'),
           ['**/*.d.ts', '!node_modules/**'],
-          path.join(targetPath, 'typescript'),
+          path.join(targetPath, 'types'),
         ),
       () =>
         fs.copyFileSync(
@@ -147,6 +147,11 @@ This module bundles [i18next](https://www.npmjs.com/package/i18next) module for 
         fs.copyFileSync(
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
         ),
     ],
     {

@@ -134,6 +134,11 @@ This module bundles [readable-stream](https://www.npmjs.com/package/readable-str
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
         ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
+        ),
     ],
     { once: true, exitOnFail: true },
   );

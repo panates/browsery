@@ -1,6 +1,6 @@
 {
   "name": "@browsery/jsondiffpatch",
-  "version": "0.6.1-r2",
+  "version": "0.6.1-r3",
   "description": "Browser compatible jsondiffpatch",
   "author": "Panates",
   "license": "MIT",
@@ -25,21 +25,31 @@
         "default": "./esm/index.mjs"
       },
       "require": {
-        "types": "./types/index.d.ts",
+        "types": "./types/index.d.cts",
         "default": "./cjs/index.cjs"
       },
       "default": "./esm/index.mjs"
     },
     "./package.json": "./package.json",
     "./with-text-diffs": {
-      "types": "./types/with-text-diffs.d.ts",
-      "require": "./cjs/with-text-diffs.cjs",
-      "import": "./esm/with-text-diffs.mjs"
+      "import": {
+        "types": "./types/with-text-diffs.d.ts",
+        "default": "./esm/with-text-diffs.mjs"
+      },
+      "require": {
+        "types": "./types/with-text-diffs.d.cts",
+        "default": "./cjs/with-text-diffs.cjs"
+      }
     },
     "./formatters/*": {
-      "types": "./types/formatters/*.d.ts",
-      "require": "./cjs/formatters/*.cjs",
-      "import": "./esm/formatters/*.mjs"
+      "import": {
+        "types": "./types/formatters/*.d.ts",
+        "default": "./esm/formatters/*.mjs"
+      },
+      "require": {
+        "types": "./types/formatters/*.d.cts",
+        "default": "./cjs/formatters/*.cjs"
+      }
     }
   },
   "main": "./cjs/index.cjs",

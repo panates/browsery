@@ -1,6 +1,6 @@
 {
   "name": "@browsery/antlr4",
-  "version": "4.13.3-r2",
+  "version": "4.13.3-r3",
   "description": "Browser compatible antlr4 module",
   "author": "Panates",
   "license": "MIT",
@@ -23,21 +23,27 @@
         "default": "./esm/antlr4.node.mjs"
       },
       "require": {
-        "types": "./types/index.d.ts",
+        "types": "./types/index.d.cts",
         "default": "./cjs/antlr4.node.cjs"
       },
       "node": {
-        "types": "./types/index.d.ts",
+        "types": "./types/index.d.cts",
         "import": "./esm/antlr4.node.mjs",
         "require": "./cjs/antlr4.node.cjs",
         "default": "./esm/antlr4.node.mjs"
       },
       "browser": {
-        "types": "./types/index.d.ts",
-        "import": "./esm/antlr4.web.mjs",
-        "require": "./cjs/antlr4.web.cjs",
+        "import": {
+          "types": "./types/index.d.ts",
+          "default": "./esm/antlr4.web.mjs"
+        },
+        "require": {
+          "types": "./types/index.d.ts",
+          "default": "./cjs/antlr4.web.cjs"
+        },
         "default": "./esm/antlr4.web.mjs"
       },
+      "types": "./types/index.d.ts",
       "default": "./esm/antlr4.node.mjs"
     },
     "./package.json": "./package.json"

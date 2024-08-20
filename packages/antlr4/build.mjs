@@ -49,7 +49,7 @@ async function run() {
     JSON.stringify(pkgJson, null, 2),
     'utf-8',
   );
-  fs.renameSync(
+  fs.copyFileSync(
     path.join(targetPath, 'types/index.d.cts'),
     path.join(targetPath, 'types/index.d.ts'),
   );

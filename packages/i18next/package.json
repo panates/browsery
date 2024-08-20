@@ -1,6 +1,6 @@
 {
   "name": "@browsery/i18next",
-  "version": "23.12.3-r1",
+  "version": "23.12.3-r2",
   "description": "Browser compatible i18next module",
   "author": "Panates",
   "license": "MIT",
@@ -13,17 +13,17 @@
     "format": "prettier . --write --log-level=warn"
   },
   "devDependencies": {
-    "i18next": "^23.12.2"
+    "i18next": "^23.14.0"
   },
   "type": "module",
   "exports": {
     ".": {
       "import": {
-        "types": "./index.d.ts",
+        "types": "./types/index.d.ts",
         "default": "./esm/index.mjs"
       },
       "require": {
-        "types": "./index.d.ts",
+        "types": "./types/index.d.cts",
         "default": "./cjs/index.cjs"
       },
       "default": "./esm/index.mjs"
@@ -32,7 +32,7 @@
   },
   "main": "./cjs/index.cjs",
   "module": "./esm/index.mjs",
-  "types": "./index.d.ts",
+  "types": "./types/index.d.ts",
   "sideEffects": false,
   "repository": {
     "type": "git",
@@ -42,8 +42,7 @@
   "files": [
     "cjs/",
     "esm/",
-    "typescript/",
-    "index.d.ts",
+    "types/",
     "LICENSE",
     "README.md"
   ],

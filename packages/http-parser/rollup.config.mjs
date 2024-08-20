@@ -147,6 +147,16 @@ This module bundles [http-parser-js](https://www.npmjs.com/package/http-parser-j
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
         ),
+      () =>
+        fs.renameSync(
+          path.resolve(targetPath, './types/http-parser.d.ts'),
+          path.resolve(targetPath, './types/index.d.ts'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
+        ),
     ],
     { once: true, exitOnFail: true },
   );
