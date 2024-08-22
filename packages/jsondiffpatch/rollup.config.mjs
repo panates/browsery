@@ -20,7 +20,7 @@ const buildPath = path.resolve(dirname, '../../build');
 const targetPath = path.resolve(buildPath, 'jsondiffpatch');
 const pkgJson = require('./package.json');
 
-const external = Object.keys(pkgJson.dependencies);
+const external = []; // Object.keys(pkgJson.dependencies);
 const srcPath = path.dirname(require.resolve('jsondiffpatch'));
 
 const buildTargetCfg = (format, override) => ({
@@ -30,6 +30,7 @@ const buildTargetCfg = (format, override) => ({
   format,
   name: 'jsondiffpatch',
   exports: 'named',
+  banner: 'globalThis.navigator = globalThis.navigator || {};',
   ...override,
 });
 
@@ -61,6 +62,16 @@ function runCommands() {
       () =>
         fs.copyFileSync(
           path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index_org.d.ts'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, './lib/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.ts'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, './lib/index.d.ts'),
           path.resolve(targetPath, './types/index.d.cts'),
         ),
       () =>
@@ -90,7 +101,7 @@ function runCommands() {
 
 export default {
   input: {
-    index: path.join(srcPath, './index.js'),
+    index: path.join(dirname, './lib/index.mjs'),
     'with-text-diffs': path.join(srcPath, './with-text-diffs.js'),
     ...Object.fromEntries(
       glob
