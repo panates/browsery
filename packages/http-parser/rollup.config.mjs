@@ -150,12 +150,12 @@ This module bundles [http-parser-js](https://www.npmjs.com/package/http-parser-j
       () =>
         fs.renameSync(
           path.resolve(targetPath, './types/http-parser.d.ts'),
-          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/http-parser.d.ts'),
         ),
       () =>
         fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
+          path.resolve(targetPath, './types/http-parser.d.ts'),
+          path.resolve(targetPath, './types/http-parser.d.cts'),
         ),
     ],
     { once: true, exitOnFail: true },
