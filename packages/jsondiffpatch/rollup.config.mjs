@@ -30,7 +30,7 @@ const buildTargetCfg = (format, override) => ({
   format,
   name: 'jsondiffpatch',
   exports: 'named',
-  banner: 'globalThis.navigator = globalThis.navigator || {};',
+  banner: 'if (!globalThis?.navigator) globalThis.navigator = {};',
   ...override,
 });
 

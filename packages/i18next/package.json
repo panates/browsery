@@ -13,7 +13,7 @@
     "format": "prettier . --write --log-level=warn"
   },
   "devDependencies": {
-    "i18next": "^23.14.0"
+    "i18next": "^23.15.1"
   },
   "type": "module",
   "exports": {
