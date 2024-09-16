@@ -1,7 +1,7 @@
 /// <reference types="node" />
 import { IncomingMessage } from 'http';
 
-export = typeIs;
+export default typeIs;
 
 declare function typeIs(
   request: IncomingMessage,
