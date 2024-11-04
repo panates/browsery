@@ -1,19 +1,22 @@
 {
-  "name": "@browsery/i18next",
-  "version": "23.12.3-r2",
-  "description": "Browser compatible i18next module",
+  "name": "@browsery/validator",
+  "version": "13.12.0-r2",
+  "description": "Browser compatible 'validator' module",
   "author": "Panates",
   "license": "MIT",
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf ../../build/i18next",
+    "clean": "rimraf ../../build/type-is",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --max-warnings=0 --fix",
     "format": "prettier . --write --log-level=warn"
   },
+  "dependencies": {
+    "validator": "^13.12.0"
+  },
   "devDependencies": {
-    "i18next": "^23.16.4"
+    "@types/validator": "^13.12.2"
   },
   "type": "module",
   "exports": {
@@ -37,7 +40,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/panates/browsery.git",
-    "directory": "packages/i18next"
+    "directory": "packages/type-is"
   },
   "files": [
     "cjs/",
@@ -47,8 +50,8 @@
     "README.md"
   ],
   "keywords": [
-    "i18next",
-    "i18n",
+    "type-is",
+    "mime",
     "browser",
     "browsery",
     "browserify"
