@@ -264,7 +264,7 @@ function tryNormalizeType(value) {
 
   try {
     return normalizeType(value);
-  } catch (err) {
+  } catch {
     return null;
   }
 }

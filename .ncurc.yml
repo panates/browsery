@@ -1,0 +1,4 @@
+
+workspaces: true
+peer: true
+rejectVersion: "/(\\|\\|)|(&&)|>|<|\*/"

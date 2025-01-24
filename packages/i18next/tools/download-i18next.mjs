@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { fileURLToPath } from 'node:url';
 import fs from 'fs';
 import fsp from 'fs/promises';

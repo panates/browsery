@@ -70,7 +70,7 @@ export default async () => {
         transform(code) {
           if (code.includes('assert.')) {
             code = code
-              .replaceAll("var assert = require('assert');", '')
+              .replaceAll(`var assert = require('assert');`, '')
               .replaceAll('assert.ok(', 'assertOk(')
               .replaceAll('assert.equal(', 'assertEqual(');
           }
