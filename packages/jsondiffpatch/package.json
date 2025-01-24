@@ -9,6 +9,18 @@
     "url": "https://github.com/panates/browsery.git",
     "directory": "packages/jsondiffpatchs"
   },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-strip": "^3.0.4",
+    "@rollup-extras/plugin-clean": "^1.3.9",
+    "ansi-colors": "^4.1.3",
+    "fast-glob": "^3.3.3",
+    "jsondiffpatch": "^0.6.0",
+    "rollup-plugin-command": "^1.1.3",
+    "rollup-plugin-filesize": "^10.0.0"
+  },
   "scripts": {
     "prebuild": "npm run clean && npm run lint",
     "build": "rollup -c rollup.config.mjs",
@@ -55,18 +67,6 @@
   "main": "./cjs/index.cjs",
   "module": "./esm/index.mjs",
   "types": "./types/index.d.ts",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-inject": "^5.0.5",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-strip": "^3.0.4",
-    "@rollup-extras/plugin-clean": "^1.3.9",
-    "ansi-colors": "^4.1.3",
-    "fast-glob": "^3.3.3",
-    "jsondiffpatch": "^0.6.0",
-    "rollup-plugin-command": "^1.1.3",
-    "rollup-plugin-filesize": "^10.0.0"
-  },
   "sideEffects": false,
   "files": [
     "cjs/",
