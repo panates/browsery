@@ -18,7 +18,7 @@ import { manualChunksResolver } from '../../utils/manual-chunks-resolver.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const buildPath = path.resolve(dirname, '../../build');
+const buildPath = path.resolve(dirname, './build');
 const targetPath = path.resolve(buildPath, 'highland');
 const pkgJson = require('./package.json');
 

@@ -6,9 +6,8 @@ import { copyFiles } from '../../utils/copy-files.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const buildPath = path.resolve(dirname, '../../build');
+const targetPath = path.resolve(dirname, './build');
 const sourcePath = path.resolve(path.dirname(require.resolve('antlr4')), '..');
-const targetPath = path.resolve(buildPath, 'antlr4');
 const pkgJson = require('./package.json');
 
 async function run() {

@@ -1,5 +1,7 @@
 import { fileURLToPath } from 'node:url';
+import alias from '@rollup/plugin-alias';
 import commonjs from '@rollup/plugin-commonjs';
+import inject from '@rollup/plugin-inject';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
@@ -12,39 +14,54 @@ import filesize from 'rollup-plugin-filesize';
 import { copyFiles } from '../../utils/copy-files.mjs';
 import { copyTextFile } from '../../utils/copy-text-file.mjs';
 import { filterDependencies } from '../../utils/filter-dependencies.js';
+import { manualChunksResolver } from '../../utils/manual-chunks-resolver.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const targetPath = path.resolve(dirname, './build');
 const pkgJson = require('./package.json');
 
-const external = Object.keys(pkgJson.dependencies);
-const srcdir = path.dirname(require.resolve('validator'));
+const external = Object.keys(pkgJson.dependencies || {});
 
 export default {
-  input: [path.join(srcdir, 'es/index.js')],
+  input: [path.join(require.resolve('@sindresorhus/slugify'))],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].mjs',
       chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
-      name: 'Validator',
+      name: 'Highland',
+      manualChunks: manualChunksResolver({
+        external,
+        exclude: ['highland'],
+      }),
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].cjs',
       chunkFileNames: '[name]-[hash].cjs',
       format: 'cjs',
-      name: 'Validator',
+      name: 'Highland',
+      manualChunks: manualChunksResolver({
+        external,
+        exclude: ['highland'],
+      }),
     },
   ],
   external,
   plugins: [
+    alias({
+      entries: [
+        { find: 'stream', replacement: '@browsery/stream' },
+        { find: 'util', replacement: '@browsery/util' },
+      ],
+    }),
     clean(targetPath),
     commonjs(),
     strip(),
     filesize(),
+    inject({ process: 'process' }),
     nodeResolve({
       browser: true,
       preferBuiltins: false,
@@ -78,38 +95,29 @@ function runCommands() {
       // Copy README.md
       () =>
         copyTextFile(
-          path.resolve(srcdir, 'README.md'),
+          require.resolve('highland/README.md'),
           path.join(targetPath, 'README.md'),
           content =>
-            `# @browsery/validator
-Browser compatible "validator"!
+            `# @browsery/highland
+Browser compatible highland!
 
-This module bundles [validator](https://www.npmjs.com/package/validator) module for browsers!
+This module bundles [highland](https://www.npmjs.com/package/highland) module for browsers!
 
 ` + content,
         ),
       // Copy LICENSE from readable-stream
-      () => copyFiles(srcdir, ['LICENSE', '!node_modules/**'], targetPath),
+      () =>
+        copyFiles(
+          path.dirname(require.resolve('highland/package.json')),
+          ['LICENSE', '!node_modules/**'],
+          targetPath,
+        ),
       // Copy types from @types/readable-stream
       () =>
         copyFiles(
-          path.resolve(srcdir, '../@types/validator/lib'),
-          ['*.d.ts'],
-          path.join(targetPath, 'types/lib'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(srcdir, '../@types/validator/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
-      () =>
-        fs.writeFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          `import * as valgen from './index.cts';
-
-export default valgen;
-`,
-          'utf-8',
+          path.dirname(require.resolve('@types/highland/package.json')),
+          ['**/*.d.ts', '!node_modules/**'],
+          path.join(targetPath, 'types'),
         ),
       () =>
         fs.copyFileSync(
@@ -120,6 +128,11 @@ export default valgen;
         fs.copyFileSync(
           path.resolve(dirname, '../../support/package.esm.json'),
           path.resolve(targetPath, './esm/package.json'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './types/index.d.ts'),
+          path.resolve(targetPath, './types/index.d.cts'),
         ),
     ],
     { once: true, exitOnFail: true },

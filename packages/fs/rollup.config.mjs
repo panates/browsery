@@ -9,8 +9,7 @@ import { filterDependencies } from '../../utils/filter-dependencies.js';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const buildPath = path.resolve(dirname, '../../build');
-const targetPath = path.resolve(buildPath, 'fs');
+const targetPath = path.resolve(dirname, './build');
 const pkgJson = require('./package.json');
 
 export default {

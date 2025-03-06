@@ -53,7 +53,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/panates/browsery.git",
+    "url": "git+https://github.com/panates/browsery.git",
     "directory": "packages/stream"
   },
   "files": [

@@ -18,8 +18,7 @@ import { downloadI18next } from './tools/download-i18next.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const buildPath = path.resolve(dirname, '../../build');
-const targetPath = path.resolve(buildPath, 'i18next');
+const targetPath = path.resolve(dirname, './build');
 const pkgJson = require('./package.json');
 
 const external = Object.keys(pkgJson.dependencies || {});
