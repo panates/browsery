@@ -63,5 +63,8 @@
     "browser",
     "browsery",
     "browserify"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

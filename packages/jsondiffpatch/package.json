@@ -81,5 +81,8 @@
     "json",
     "diff",
     "patch"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
