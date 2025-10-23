@@ -88,9 +88,9 @@ This module bundles [validator](https://www.npmjs.com/package/validator) module 
 
 ` + content,
         ),
-      // Copy LICENSE from readable-stream
+      // Copy LICENSE
       () => copyFiles(srcdir, ['LICENSE', '!node_modules/**'], targetPath),
-      // Copy types from @types/readable-stream
+      // Copy types
       () =>
         copyFiles(
           path.resolve(srcdir, '../@types/validator/lib'),
@@ -105,9 +105,9 @@ This module bundles [validator](https://www.npmjs.com/package/validator) module 
       () =>
         fs.writeFileSync(
           path.resolve(targetPath, './types/index.d.ts'),
-          `import * as valgen from './index.cts';
+          `import * as validator from './index.cts';
 
-export default valgen;
+export default validator;
 `,
           'utf-8',
         ),

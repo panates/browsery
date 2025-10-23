@@ -1,6 +1,6 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.5.9-r4",
+  "version": "0.5.10",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
   "license": "MIT",
@@ -13,12 +13,12 @@
     "format": "prettier . --write --log-level=warn"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-commonjs": "^28.0.8",
     "@rollup/plugin-inject": "^5.0.5",
-    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-strip": "^3.0.4",
     "@rollup-extras/plugin-clean": "^1.3.9",
-    "http-parser-js": "^0.5.9",
+    "http-parser-js": "^0.5.10",
     "ansi-colors": "^4.1.3",
     "rollup-plugin-command": "^1.1.3",
     "rollup-plugin-filesize": "^10.0.0"

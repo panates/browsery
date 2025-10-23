@@ -1,6 +1,5 @@
 import { fileURLToPath } from 'node:url';
 import commonjs from '@rollup/plugin-commonjs';
-import inject from '@rollup/plugin-inject';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
@@ -17,27 +16,27 @@ import { filterDependencies } from '../../utils/filter-dependencies.js';
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const targetPath = path.resolve(dirname, './build');
-const srcDir = path.dirname(require.resolve('@sindresorhus/slugify'));
 const pkgJson = require('./package.json');
 
-const external = Object.keys(pkgJson.dependencies || {});
+const external = Object.keys(pkgJson.dependencies);
+const srcdir = path.dirname(require.resolve('jsonc-parser/package.json'));
 
 export default {
-  input: [path.join(srcDir, 'index.js')],
+  input: [path.join(srcdir, 'lib/esm/main.js')],
   output: [
     {
       dir: path.resolve(targetPath, 'esm'),
       entryFileNames: '[name].mjs',
       chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
-      name: 'Slugify',
+      name: 'jsoncparser',
     },
     {
       dir: path.resolve(targetPath, 'cjs'),
       entryFileNames: '[name].cjs',
       chunkFileNames: '[name]-[hash].cjs',
       format: 'cjs',
-      name: 'Slugify',
+      name: 'jsoncparser',
     },
   ],
   external,
@@ -46,7 +45,6 @@ export default {
     commonjs(),
     strip(),
     filesize(),
-    inject({ process: 'process' }),
     nodeResolve({
       browser: true,
       preferBuiltins: false,
@@ -80,40 +78,49 @@ function runCommands() {
       // Copy README.md
       () =>
         copyTextFile(
-          require.resolve(srcDir, 'README.md'),
+          path.resolve(srcdir, 'README.md'),
           path.join(targetPath, 'README.md'),
           content =>
-            `# @browsery/slugify
-Browser compatible slugify!
+            `# @browsery/validator
+Browser compatible "validator"!
 
-This module bundles [slugify](https://www.npmjs.com/package/sindresorhus/slugify) module for browsers!
+This module bundles [validator](https://www.npmjs.com/package/validator) module for browsers!
 
 ` + content,
         ),
-      // Copy LICENSE from readable-stream
-      () => copyFiles(srcDir, ['LICENSE', '!node_modules/**'], targetPath),
-      // Copy types from @types/readable-stream
+      // Copy LICENSE
+      () => copyFiles(srcdir, ['LICENSE', '!node_modules/**'], targetPath),
+      // Copy types
       () =>
         copyFiles(
-          srcDir,
-          ['**/*.d.ts', '!node_modules/**'],
+          path.join(srcdir, 'lib/esm'),
+          ['*.d.ts'],
           path.join(targetPath, 'types'),
         ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
+      //       () =>
+      //         fs.copyFileSync(
+      //           path.resolve(srcdir, '../@types/validator/index.d.ts'),
+      //           path.resolve(targetPath, './types/index.d.cts'),
+      //         ),
+      //       () =>
+      //         fs.writeFileSync(
+      //           path.resolve(targetPath, './types/index.d.ts'),
+      //           `import * as valgen from './index.cts';
+      //
+      // export default valgen;
+      // `,
+      //           'utf-8',
+      //         ),
+      //       () =>
+      //         fs.copyFileSync(
+      //           path.resolve(dirname, '../../support/package.cjs.json'),
+      //           path.resolve(targetPath, './cjs/package.json'),
+      //         ),
+      //       () =>
+      //         fs.copyFileSync(
+      //           path.resolve(dirname, '../../support/package.esm.json'),
+      //           path.resolve(targetPath, './esm/package.json'),
+      //         ),
     ],
     { once: true, exitOnFail: true },
   );
