@@ -22,82 +22,6 @@ const pkgJson = require('./package.json');
 const external = []; // Object.keys(pkgJson.dependencies);
 const srcPath = path.dirname(require.resolve('jsondiffpatch'));
 
-const buildTargetCfg = (format, override) => ({
-  dir: path.resolve(targetPath, format),
-  entryFileNames: '[name].' + (format === 'esm' ? 'mjs' : 'cjs'),
-  chunkFileNames: '[name].' + (format === 'esm' ? 'mjs' : 'cjs'),
-  format,
-  name: 'jsondiffpatch',
-  exports: 'named',
-  banner: 'if (!globalThis?.navigator) globalThis.navigator = {};',
-  ...override,
-});
-
-function runCommands() {
-  return command(
-    [
-      // Copy package.json
-      async () => {
-        const json = filterDependencies(pkgJson, external);
-        fs.writeFileSync(
-          path.join(targetPath, 'package.json'),
-          JSON.stringify(json, undefined, 2),
-          'utf-8',
-        );
-      },
-      () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'esm')),
-      () => copyFiles(srcPath, ['**/*.css'], path.join(targetPath, 'cjs')),
-      () => copyFiles(srcPath, ['**/*.d.ts'], path.join(targetPath, 'types')),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index_org.d.ts'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, './lib/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.ts'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, './lib/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/with-text-diffs.d.ts'),
-          path.resolve(targetPath, './types/with-text-diffs.d.cts'),
-        ),
-      () => {
-        const files = glob.sync('./types/formatters/*.d.ts', {
-          cwd: targetPath,
-          absolute: true,
-        });
-        for (const file of files) {
-          fs.copyFileSync(
-            file,
-            path.join(
-              path.dirname(file),
-              path.basename(file, path.extname(file)) + '.cts',
-            ),
-          );
-        }
-      },
-    ],
-    { once: true, exitOnFail: true },
-  );
-}
-
 export default {
   input: {
     index: path.join(dirname, './lib/index.mjs'),
@@ -118,7 +42,16 @@ export default {
         ]),
     ),
   },
-  output: [buildTargetCfg('esm'), buildTargetCfg('cjs')],
+  output: [
+    {
+      dir: targetPath,
+      entryFileNames: '[name].js',
+      format: 'esm',
+      name: 'jsondiffpatch',
+      exports: 'named',
+      banner: 'if (!globalThis?.navigator) globalThis.navigator = {};',
+    },
+  ],
   external,
   plugins: [
     clean(targetPath),
@@ -143,3 +76,32 @@ export default {
     console.warn(colors.yellow(`(!) ${warning.message}`));
   },
 };
+
+function runCommands() {
+  return command(
+    [
+      // Copy package.json
+      async () => {
+        const json = filterDependencies(pkgJson, external);
+        fs.writeFileSync(
+          path.join(targetPath, 'package.json'),
+          JSON.stringify(json, undefined, 2),
+          'utf-8',
+        );
+      },
+      () => copyFiles(srcPath, ['**/*.css'], targetPath),
+      () => copyFiles(srcPath, ['**/*.d.ts'], targetPath),
+      () =>
+        fs.copyFileSync(
+          path.resolve(targetPath, './index.d.ts'),
+          path.resolve(targetPath, './index_org.d.ts'),
+        ),
+      () =>
+        fs.copyFileSync(
+          path.resolve(dirname, './lib/index.d.ts'),
+          path.resolve(targetPath, './index.d.ts'),
+        ),
+    ],
+    { once: true, exitOnFail: true },
+  );
+}

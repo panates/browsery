@@ -24,17 +24,9 @@ export default {
   input: [path.join(dirname, 'lib/index.mjs')],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'index.js',
       format: 'esm',
-      name: 'TypeIs',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'TypeIs',
     },
   ],
@@ -68,7 +60,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -90,27 +82,7 @@ This module bundles [type-is](https://www.npmjs.com/package/type-is) module for 
       // Copy LICENSE from readable-stream
       () => copyFiles(dirname, ['LICENSE', '!node_modules/**'], targetPath),
       // Copy types from @types/readable-stream
-      () =>
-        copyFiles(
-          path.join(dirname, 'lib'),
-          ['*.d.ts'],
-          path.join(targetPath, 'types'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
+      () => copyFiles(path.join(dirname, 'lib'), ['*.d.ts'], targetPath),
     ],
     { once: true, exitOnFail: true },
   );

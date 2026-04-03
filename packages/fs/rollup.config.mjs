@@ -16,17 +16,9 @@ export default {
   input: ['src/fs.mjs'],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'index.js',
       format: 'esm',
-      name: 'Fs',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'Fs',
     },
   ],
@@ -39,7 +31,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, []);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -47,16 +39,6 @@ function runCommands() {
       },
       // Copy LICENSE from readable-stream
       () => copyFiles(dirname, ['LICENSE', 'README.MD'], targetPath),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
     ],
     { once: true, exitOnFail: true },
   );

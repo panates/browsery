@@ -13,7 +13,6 @@ import filesize from 'rollup-plugin-filesize';
 import { copyFiles } from '../../utils/copy-files.mjs';
 import { copyTextFile } from '../../utils/copy-text-file.mjs';
 import { filterDependencies } from '../../utils/filter-dependencies.js';
-import { manualChunksResolver } from '../../utils/manual-chunks-resolver.mjs';
 import { downloadI18next } from './tools/download-i18next.mjs';
 
 const require = createRequire(import.meta.url);
@@ -39,28 +38,11 @@ export default async () => {
     input: [path.resolve(dirname, 'tmp/src/index.js')],
     output: [
       {
-        dir: path.resolve(targetPath, 'esm'),
-        entryFileNames: '[name].mjs',
-        chunkFileNames: '[name]-[hash].mjs',
+        dir: targetPath,
+        entryFileNames: 'index.js',
         format: 'esm',
         name: 'I18next',
         intro,
-        manualChunks: manualChunksResolver({
-          external,
-          exclude: ['i18next'],
-        }),
-      },
-      {
-        dir: path.resolve(targetPath, 'cjs'),
-        entryFileNames: '[name].cjs',
-        chunkFileNames: '[name]-[hash].cjs',
-        format: 'cjs',
-        name: 'I18next',
-        intro,
-        manualChunks: manualChunksResolver({
-          external,
-          exclude: ['i18next'],
-        }),
       },
     ],
     external,
@@ -106,7 +88,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -135,22 +117,7 @@ This module bundles [i18next](https://www.npmjs.com/package/i18next) module for 
         copyFiles(
           path.resolve(dirname, 'tmp'),
           ['**/*.d.ts', '!node_modules/**'],
-          path.join(targetPath, 'types'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
+          targetPath,
         ),
     ],
     {

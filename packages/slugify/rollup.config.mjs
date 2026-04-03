@@ -26,17 +26,10 @@ export default {
   input: [path.join(srcDir, 'index.js')],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
+      dir: targetPath,
       entryFileNames: '[name].mjs',
       chunkFileNames: '[name]-[hash].mjs',
       format: 'esm',
-      name: 'Slugify',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'Slugify',
     },
   ],
@@ -71,7 +64,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -93,27 +86,7 @@ This module bundles [slugify](https://www.npmjs.com/package/sindresorhus/slugify
       // Copy LICENSE from readable-stream
       () => copyFiles(srcDir, ['LICENSE', '!node_modules/**'], targetPath),
       // Copy types from @types/readable-stream
-      () =>
-        copyFiles(
-          srcDir,
-          ['**/*.d.ts', '!node_modules/**'],
-          path.join(targetPath, 'types'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
+      () => copyFiles(srcDir, ['**/*.d.ts', '!node_modules/**'], targetPath),
     ],
     { once: true, exitOnFail: true },
   );

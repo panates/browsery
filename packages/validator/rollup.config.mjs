@@ -4,6 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import strip from '@rollup/plugin-strip';
 import clean from '@rollup-extras/plugin-clean';
 import colors from 'ansi-colors';
+import glob from 'fast-glob';
 import fs from 'fs';
 import { createRequire } from 'module';
 import path from 'path';
@@ -25,17 +26,9 @@ export default {
   input: [path.join(srcdir, 'es/index.js')],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'index.js',
       format: 'esm',
-      name: 'Validator',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'Validator',
     },
   ],
@@ -69,7 +62,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -90,37 +83,36 @@ This module bundles [validator](https://www.npmjs.com/package/validator) module 
         ),
       // Copy LICENSE
       () => copyFiles(srcdir, ['LICENSE', '!node_modules/**'], targetPath),
+      () =>
+        copyFiles(
+          path.resolve(srcdir, '../@types/validator'),
+          ['*.d.ts'],
+          targetPath,
+        ),
       // Copy types
       () =>
         copyFiles(
           path.resolve(srcdir, '../@types/validator/lib'),
-          ['*.d.ts'],
-          path.join(targetPath, 'types/lib'),
+          ['**/*.d.ts'],
+          path.join(targetPath, 'lib'),
         ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(srcdir, '../@types/validator/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
-        ),
-      () =>
-        fs.writeFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          `import * as validator from './index.cts';
-
-export default validator;
-`,
-          'utf-8',
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
+      () => {
+        /** Fix esm support in d.ts files */
+        const files = glob.sync(path.join(targetPath, 'lib/*.d.ts'));
+        for (const file of files) {
+          const content = fs.readFileSync(file, 'utf-8');
+          fs.writeFileSync(
+            file,
+            content.replace(/\.\/"/g, './index.js"'),
+            'utf-8',
+          );
+        }
+        const file = path.join(targetPath, 'index.d.ts');
+        const content = fs
+          .readFileSync(file, 'utf-8')
+          .replace(/(from\s+["'])(\.\/[^"']+?)(?<!\.js)(["'])/g, '$1$2.js$3');
+        fs.writeFileSync(file, content, 'utf-8');
+      },
     ],
     { once: true, exitOnFail: true },
   );

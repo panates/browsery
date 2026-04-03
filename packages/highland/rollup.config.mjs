@@ -14,12 +14,10 @@ import filesize from 'rollup-plugin-filesize';
 import { copyFiles } from '../../utils/copy-files.mjs';
 import { copyTextFile } from '../../utils/copy-text-file.mjs';
 import { filterDependencies } from '../../utils/filter-dependencies.js';
-import { manualChunksResolver } from '../../utils/manual-chunks-resolver.mjs';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const buildPath = path.resolve(dirname, './build');
-const targetPath = path.resolve(buildPath, 'highland');
+const targetPath = path.resolve(dirname, './build');
 const pkgJson = require('./package.json');
 
 const external = Object.keys(pkgJson.dependencies);
@@ -30,26 +28,10 @@ export default {
   ],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'index.js',
       format: 'esm',
       name: 'Highland',
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['highland'],
-      }),
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
-      name: 'Highland',
-      manualChunks: manualChunksResolver({
-        external,
-        exclude: ['highland'],
-      }),
     },
   ],
   external,
@@ -89,7 +71,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -120,22 +102,7 @@ This module bundles [highland](https://www.npmjs.com/package/highland) module fo
         copyFiles(
           path.dirname(require.resolve('@types/highland/package.json')),
           ['**/*.d.ts', '!node_modules/**'],
-          path.join(targetPath, 'types'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(targetPath, './types/index.d.ts'),
-          path.resolve(targetPath, './types/index.d.cts'),
+          targetPath,
         ),
     ],
     { once: true, exitOnFail: true },

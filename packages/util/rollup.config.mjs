@@ -25,17 +25,9 @@ export default {
   input: [require.resolve('util')],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'index.js',
       format: 'esm',
-      name: 'Util',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'Util',
     },
   ],
@@ -70,7 +62,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -95,16 +87,6 @@ This module bundles [util](https://www.npmjs.com/package/util) module for browse
           path.dirname(require.resolve('util/package.json')),
           ['LICENSE', '!node_modules/**'],
           targetPath,
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.cjs.json'),
-          path.resolve(targetPath, './cjs/package.json'),
-        ),
-      () =>
-        fs.copyFileSync(
-          path.resolve(dirname, '../../support/package.esm.json'),
-          path.resolve(targetPath, './esm/package.json'),
         ),
     ],
     { once: true, exitOnFail: true },

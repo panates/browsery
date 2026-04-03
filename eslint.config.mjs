@@ -10,6 +10,7 @@ export default [
       'packages/**/node_modules/**/*',
       'packages/**/tmp/**/*',
       'packages/**/build/**/*',
+      'packages/antlr4/antlr4/**/*',
     ],
   },
   ...panatesEslint.configs.node,

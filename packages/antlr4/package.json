@@ -1,6 +1,6 @@
 {
   "name": "@browsery/antlr4",
-  "version": "4.13.3-r4",
+  "version": "4.13.3-r5",
   "description": "Browser compatible antlr4 module",
   "author": "Panates",
   "license": "MIT",
@@ -16,48 +16,24 @@
     "antlr4": "^4.13.2"
   },
   "type": "module",
+  "main": "./index.node.js",
+  "module": "./index.node.js",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "browser": {
-        "import": {
-          "types": "./types/index.d.ts",
-          "default": "./esm/antlr4.web.mjs"
-        },
-        "require": {
-          "types": "./types/index.d.ts",
-          "default": "./cjs/antlr4.web.cjs"
-        },
-        "default": "./esm/antlr4.web.mjs"
-      },
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./esm/antlr4.node.mjs"
-      },
-      "require": {
-        "types": "./types/index.d.cts",
-        "default": "./cjs/antlr4.node.cjs"
-      },
-      "types": "./types/index.d.ts",
-      "default": "./esm/antlr4.node.mjs"
+      "types": "./index.d.ts",
+      "browser": "./index.web.js",
+      "default": "./index.node.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./cjs/antlr4.web.cjs",
-  "module": "./esm/antlr4.web.mjs",
-  "types": "./types/index.d.ts",
+
   "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panates/browsery.git",
     "directory": "packages/antlr4"
   },
-  "files": [
-    "cjs/",
-    "esm/",
-    "types/",
-    "LICENSE",
-    "README.md"
-  ],
   "keywords": [
     "antlr4",
     "browser",

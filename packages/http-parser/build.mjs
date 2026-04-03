@@ -61,23 +61,13 @@ function assertEqual(a, b){
 
 await esbuild.build({
   ...defaultConfig,
-  outfile: path.join(targetPath, './cjs/index.cjs'),
+  outfile: path.join(targetPath, './index.js'),
   format: 'cjs',
 });
-// await esbuild.build({
-//   ...defaultConfig,
-//   outfile: path.join(targetPath, './esm/index.mjs'),
-//   format: 'esm',
-// });
-fs.mkdirSync(path.resolve(targetPath, 'types'));
 fs.copyFileSync(
   path.resolve(srcDir, 'http-parser.d.ts'),
-  path.resolve(targetPath, 'types/index.d.ts'),
+  path.resolve(targetPath, 'index.d.ts'),
 );
-// fs.copyFileSync(
-//   path.resolve(srcDir, 'http-parser.d.ts'),
-//   path.resolve(targetPath, 'types/index.d.cts'),
-// );
 fs.copyFileSync(
   path.resolve(srcDir, 'README.md'),
   path.resolve(targetPath, 'README.md'),

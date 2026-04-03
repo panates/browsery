@@ -25,17 +25,9 @@ export default {
   input: [path.join(srcdir, 'lib/esm/main.js')],
   output: [
     {
-      dir: path.resolve(targetPath, 'esm'),
-      entryFileNames: '[name].mjs',
-      chunkFileNames: '[name]-[hash].mjs',
+      dir: targetPath,
+      entryFileNames: 'main.js',
       format: 'esm',
-      name: 'jsoncparser',
-    },
-    {
-      dir: path.resolve(targetPath, 'cjs'),
-      entryFileNames: '[name].cjs',
-      chunkFileNames: '[name]-[hash].cjs',
-      format: 'cjs',
       name: 'jsoncparser',
     },
   ],
@@ -69,7 +61,7 @@ function runCommands() {
       // Copy package.json
       async () => {
         const json = filterDependencies(pkgJson, external);
-        await fs.writeFileSync(
+        fs.writeFileSync(
           path.join(targetPath, 'package.json'),
           JSON.stringify(json, undefined, 2),
           'utf-8',
@@ -91,36 +83,7 @@ This module bundles [validator](https://www.npmjs.com/package/validator) module 
       // Copy LICENSE
       () => copyFiles(srcdir, ['LICENSE', '!node_modules/**'], targetPath),
       // Copy types
-      () =>
-        copyFiles(
-          path.join(srcdir, 'lib/esm'),
-          ['*.d.ts'],
-          path.join(targetPath, 'types'),
-        ),
-      //       () =>
-      //         fs.copyFileSync(
-      //           path.resolve(srcdir, '../@types/validator/index.d.ts'),
-      //           path.resolve(targetPath, './types/index.d.cts'),
-      //         ),
-      //       () =>
-      //         fs.writeFileSync(
-      //           path.resolve(targetPath, './types/index.d.ts'),
-      //           `import * as valgen from './index.cts';
-      //
-      // export default valgen;
-      // `,
-      //           'utf-8',
-      //         ),
-      //       () =>
-      //         fs.copyFileSync(
-      //           path.resolve(dirname, '../../support/package.cjs.json'),
-      //           path.resolve(targetPath, './cjs/package.json'),
-      //         ),
-      //       () =>
-      //         fs.copyFileSync(
-      //           path.resolve(dirname, '../../support/package.esm.json'),
-      //           path.resolve(targetPath, './esm/package.json'),
-      //         ),
+      () => copyFiles(path.join(srcdir, 'lib/esm'), ['*.d.ts'], targetPath),
     ],
     { once: true, exitOnFail: true },
   );

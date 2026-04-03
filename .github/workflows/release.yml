@@ -1,0 +1,49 @@
+name: Release
+on:
+  # Can be run manually
+  workflow_dispatch:
+
+  # on git push
+  push:
+    branches:
+      - main
+    paths:
+      - '**/package.json'
+
+# Only one run at a time
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  restore-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore oracle instantclient cache
+        id: cache-oracle
+        uses: actions/cache@v5
+        with:
+          path: deps
+          key: deps-v1
+
+  release:
+    if: >
+      !contains(github.event.head_commit.message, 'no-release') &&
+      !(
+        (github.event_name == 'workflow_dispatch') ||
+        (
+          github.event_name == 'push' &&
+          !(
+              startsWith(github.event.head_commit.message, 'Merge pull request') &&
+              contains(github.event.head_commit.message, '/dev')
+          )
+        )
+      )
+    uses: panates/github-actions/.github/workflows/node-release.yaml@v1
+    needs: restore-cache
+    with:
+      cache-path: deps
+      cache-key: deps-v1
+    secrets:
+      PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

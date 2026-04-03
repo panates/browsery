@@ -1,6 +1,6 @@
 {
   "name": "@browsery/validator",
-  "version": "13.15.15",
+  "version": "13.15.35",
   "description": "Browser compatible 'validator' module",
   "author": "Panates",
   "license": "MIT",
@@ -15,48 +15,35 @@
   "dependencies": {
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.8",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-inject": "^5.0.5",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-strip": "^3.0.4",
-    "@rollup-extras/plugin-clean": "^1.3.9",
-    "@types/validator": "^13.15.3",
+    "@rollup-extras/plugin-clean": "^2.0.0",
+    "@types/validator": "^13.15.10",
     "ansi-colors": "^4.1.3",
+    "fast-glob": "^3.3.3",
     "rollup-plugin-command": "^1.1.3",
     "rollup-plugin-filesize": "^10.0.0",
-    "validator": "^13.15.15"
+    "validator": "^13.15.35"
   },
   "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./esm/index.mjs"
-      },
-      "require": {
-        "types": "./types/index.d.cts",
-        "default": "./cjs/index.cjs"
-      },
-      "default": "./esm/index.mjs"
+      "types": "./index.d.ts",
+      "default": "./index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./cjs/index.cjs",
-  "module": "./esm/index.mjs",
-  "types": "./types/index.d.ts",
   "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panates/browsery.git",
     "directory": "packages/type-is"
   },
-  "files": [
-    "cjs/",
-    "esm/",
-    "types/",
-    "LICENSE",
-    "README.md"
-  ],
   "keywords": [
     "type-is",
     "mime",

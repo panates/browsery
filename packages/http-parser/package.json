@@ -1,6 +1,6 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.5.10-r2",
+  "version": "0.5.10-r3",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
   "license": "MIT",
@@ -16,8 +16,14 @@
     "http-parser-js": "^0.5.10"
   },
   "type": "commonjs",
-  "main": "./cjs/index.cjs",
-  "types": "./types/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.js",
+  "exports": {
+    ".": {
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "sideEffects": false,
   "repository": {
     "type": "git",

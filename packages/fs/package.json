@@ -1,13 +1,13 @@
 {
   "name": "@browsery/fs",
-  "version": "0.5.1-r1",
+  "version": "0.5.1-r2",
   "description": "Browser compatible NodeJS fs module",
   "author": "Panates",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "rollup-plugin-command": "^1.1.3",
-    "@rollup-extras/plugin-clean": "^1.3.9"
+    "@rollup-extras/plugin-clean": "^2.0.0"
   },
   "peerDependencies": {},
   "scripts": {
@@ -19,26 +19,20 @@
     "format": "prettier . --write --log-level=warn"
   },
   "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
   "exports": {
     ".": {
-      "require": "./cjs/fs.cjs",
-      "import": "./esm/fs.mjs"
-    }
+      "default": "./index.js"
+    },
+    "./package.json": "./package.json"
   },
-  "main": "./cjs/fs.js",
-  "module": "./esm/fs.js",
   "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panates/browsery.git",
     "directory": "packages/fs"
   },
-  "files": [
-    "cjs/",
-    "esm/",
-    "LICENSE",
-    "README.md"
-  ],
   "keywords": [
     "fs",
     "browser",
