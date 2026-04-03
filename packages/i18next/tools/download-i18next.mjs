@@ -34,6 +34,7 @@ export async function downloadI18next() {
       name.startsWith('typescript/') ||
       name === 'package.json' ||
       name === 'LICENSE' ||
+      name === 'README.md' ||
       name === 'index.d.ts'
     ) {
       const filename = path.join(tmpDir, name);

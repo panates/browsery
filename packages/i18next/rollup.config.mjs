@@ -96,7 +96,7 @@ function runCommands() {
       }, // Copy README.md
       () =>
         copyTextFile(
-          path.resolve(dirname, 'tmp/src/README.md'),
+          path.resolve(dirname, 'tmp/README.md'),
           path.join(targetPath, 'README.md'),
           content =>
             `# @browsery/i18next
