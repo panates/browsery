@@ -4,6 +4,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as esbuild from 'esbuild';
+import { filterDependencies } from '../../utils/filter-dependencies.js';
 
 const require = createRequire(import.meta.url);
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -74,6 +75,6 @@ fs.copyFileSync(
 );
 fs.writeFileSync(
   path.join(targetPath, 'package.json'),
-  JSON.stringify(pkgJson, null, 2),
+  JSON.stringify(filterDependencies(pkgJson, external), null, 2),
   'utf-8',
 );

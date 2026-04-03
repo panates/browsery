@@ -39,6 +39,7 @@
     "browsery",
     "browserify"
   ],
+  "buildDir": "./build",
   "publishConfig": {
     "access": "public",
     "tag": "latest"

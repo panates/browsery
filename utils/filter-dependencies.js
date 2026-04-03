@@ -14,5 +14,6 @@ export function filterDependencies(json, external) {
     }
   }
   json.scripts = undefined;
+  json.buildDir = undefined;
   return json;
 }
