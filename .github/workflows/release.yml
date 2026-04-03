@@ -28,17 +28,7 @@ jobs:
 
   release:
     if: >
-      !contains(github.event.head_commit.message, 'no-release') &&
-      !(
-        (github.event_name == 'workflow_dispatch') ||
-        (
-          github.event_name == 'push' &&
-          !(
-              startsWith(github.event.head_commit.message, 'Merge pull request') &&
-              contains(github.event.head_commit.message, '/dev')
-          )
-        )
-      )
+      !contains(github.event.head_commit.message, 'no-release')
     uses: panates/github-actions/.github/workflows/node-release.yaml@v1
     needs: restore-cache
     with:
