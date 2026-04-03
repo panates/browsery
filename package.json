@@ -2,7 +2,7 @@
   "name": "browsery",
   "description": "Browser compatible Node modules",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "type": "module",
   "repository": {
