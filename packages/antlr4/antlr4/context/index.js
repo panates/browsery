@@ -2,6 +2,5 @@
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-import PredictionContext from './PredictionContext.js';
-
-export default { PredictionContext }
+export { default as RuleContext } from "./RuleContext.js";
+export { default as ParserRuleContext } from "./ParserRuleContext.js";

@@ -1,5 +1,3 @@
-import BitSet from './BitSet.js';
-import Interval from './Interval.js';
-import IntervalSet from './IntervalSet.js';
-
-export default { BitSet, Interval, IntervalSet }
+export { default as BitSet } from "./BitSet.js";
+export { default as Interval } from "./Interval.js";
+export { default as IntervalSet } from "./IntervalSet.js";
