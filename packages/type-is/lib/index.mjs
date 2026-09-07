@@ -12,7 +12,7 @@
  * @private
  */
 
-import typer from 'media-typer';
+import * as typer from 'media-typer';
 import mime from 'mime';
 
 /**
