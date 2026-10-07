@@ -1,6 +1,6 @@
 {
   "name": "@browsery/slugify",
-  "version": "3.0.1-rev.0",
+  "version": "3.0.1-rev.1",
   "description": "Browser compatible slugify module",
   "author": "Panates",
   "contributors": [
