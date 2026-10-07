@@ -1,7 +1,7 @@
 import colors from 'ansi-colors';
 
-const localNameRegex = /\/browsery\/build\/([^\/]*)/;
-const moduleNameRegex = /\/node_modules\/([^\/]*)/;
+const localNameRegex = /\/browsery\/build\/([^/]*)/;
+const moduleNameRegex = /\/node_modules\/([^/]*)/;
 const commonjsExternalRegex = /([^?]*)\?commonjs-external$/;
 
 export function manualChunksResolver({ external, exclude }) {

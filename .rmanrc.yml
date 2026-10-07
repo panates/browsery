@@ -1,0 +1,31 @@
+extends: '@panates/rman-preset'
+
+# Each package's version is the wrapped upstream module's version plus a
+# revision: 4.13.3-rev.N is the Nth browsery release of upstream 4.13.3. Any
+# change bumps only N (fix and feat alike). For a new upstream version, set the
+# package's version to <new>-rev.0 by hand; the next release publishes -rev.1.
+# Never publish a bare version: semver sorts 4.13.4 above 4.13.4-rev.N.
+version:
+  preid: rev
+
+publish:
+  npm:
+    # -rev.N is the release line, not a preview - publish it to `latest`.
+    latestPrereleases: [rev]
+
+# Every package here bundles an upstream npm module with its own rollup/esbuild
+# script (each package's `build` script wins over the preset's tsc `exec`).
+'[*]':
+  run:
+    build:
+      # The preset's `rman check` walks ./src/index.ts with dpdm; no package here
+      # has TypeScript sources, so it fails for every one of them.
+      before:
+        - { command: rman lint, topo: false }
+        - { command: rman clean, topo: false }
+      # The preset's `after` copies the repository's README.md/LICENSE and rewrites
+      # build/package.json from the source manifest. Each build script already
+      # writes those itself - the upstream module's README and LICENSE, and a
+      # manifest with the dependencies it needs (multipart-stream adds
+      # @browsery/stream) - so the preset's would overwrite them with wrong ones.
+      after: []

@@ -1,16 +1,17 @@
 {
   "name": "@browsery/slugify",
-  "version": "3.0.1-r1",
+  "version": "3.0.1-rev.0",
   "description": "Browser compatible slugify module",
   "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Ilker Gurelli <i.gurelli@panates.com>",
+    "Onur Tokel <o.tokel@panates.com>",
+    "Bircan Yuruk <b.yuruk@panates.com>"
+  ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm run clean && npm run lint",
-    "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --max-warnings=0 --fix",
-    "format": "prettier . --write --log-level=warn"
+    "build": "rollup -c rollup.config.mjs"
   },
   "devDependencies": {
     "@rollup-extras/plugin-clean": "^2.0.1",

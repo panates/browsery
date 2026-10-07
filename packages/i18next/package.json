@@ -1,16 +1,17 @@
 {
   "name": "@browsery/i18next",
-  "version": "26.4.2",
+  "version": "26.4.2-rev.0",
   "description": "Browser compatible i18next module",
   "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Ilker Gurelli <i.gurelli@panates.com>",
+    "Onur Tokel <o.tokel@panates.com>",
+    "Bircan Yuruk <b.yuruk@panates.com>"
+  ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm run clean && npm run lint",
-    "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --max-warnings=0 --fix",
-    "format": "prettier . --write --log-level=warn"
+    "build": "rollup -c rollup.config.mjs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.3",

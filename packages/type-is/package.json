@@ -1,16 +1,17 @@
 {
   "name": "@browsery/type-is",
-  "version": "2.0.2-r2",
+  "version": "2.0.2-rev.0",
   "description": "Browser compatible type-is module",
   "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Ilker Gurelli <i.gurelli@panates.com>",
+    "Onur Tokel <o.tokel@panates.com>",
+    "Bircan Yuruk <b.yuruk@panates.com>"
+  ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm run clean && npm run lint",
-    "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --max-warnings=0 --fix",
-    "format": "prettier . --write --log-level=warn"
+    "build": "rollup -c rollup.config.mjs"
   },
   "dependencies": {
     "media-typer": "^2.0.0"

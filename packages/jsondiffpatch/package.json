@@ -1,8 +1,14 @@
 {
   "name": "@browsery/jsondiffpatch",
-  "version": "0.7.6",
+  "version": "0.7.6-rev.0",
   "description": "Browser compatible jsondiffpatch",
   "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Ilker Gurelli <i.gurelli@panates.com>",
+    "Onur Tokel <o.tokel@panates.com>",
+    "Bircan Yuruk <b.yuruk@panates.com>"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -22,12 +28,7 @@
     "rollup-plugin-filesize": "^10.0.0"
   },
   "scripts": {
-    "prebuild": "npm run clean && npm run lint",
-    "build": "rollup -c rollup.config.mjs",
-    "clean": "rimraf build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --max-warnings=0 --fix",
-    "format": "prettier . --write --log-level=warn"
+    "build": "rollup -c rollup.config.mjs"
   },
   "type": "module",
   "main": "./index.js",

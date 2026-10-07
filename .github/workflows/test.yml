@@ -1,0 +1,41 @@
+name: Test
+on:
+  # Called by release.yml
+  workflow_call:
+
+  # Can be run manually
+  workflow_dispatch:
+
+  # Every branch except the release one, which release.yml covers.
+  # No path filter: GitHub's filters have no brace expansion, and a filter that misses a file
+  # silently skips the run - this repository's builds are cheap enough to run on every push.
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Setup Environment
+        uses: panates/gh-setup-node@v2
+        with:
+          node-version: '24'
+          rman-version: '2'
+          install: 'ci'
+
+      - name: Lint
+        run: rman lint
+
+      # There are no unit tests: each package bundles an upstream module, so the build itself is
+      # the check that the bundle still resolves.
+      - name: Build
+        run: rman build

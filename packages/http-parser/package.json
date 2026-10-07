@@ -1,16 +1,17 @@
 {
   "name": "@browsery/http-parser",
-  "version": "0.5.10-r3",
+  "version": "0.5.10-rev.0",
   "description": "Browser compatible http-parser-js module",
   "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Ilker Gurelli <i.gurelli@panates.com>",
+    "Onur Tokel <o.tokel@panates.com>",
+    "Bircan Yuruk <b.yuruk@panates.com>"
+  ],
   "license": "MIT",
   "scripts": {
-    "prebuild": "npm run clean && npm run lint",
-    "build": "node build.mjs",
-    "clean": "rimraf build",
-    "lint": "eslint . --max-warnings=0",
-    "lint:fix": "eslint . --max-warnings=0 --fix",
-    "format": "prettier . --write --log-level=warn"
+    "build": "node build.mjs"
   },
   "devDependencies": {
     "http-parser-js": "^0.5.10"

@@ -6,6 +6,8 @@ packages/*/dist
 packages/*/build
 packages/*/tmp
 *.cache.json
+graphify-out
+.claude
 
 # environment variables
 .env
