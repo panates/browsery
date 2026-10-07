@@ -2,7 +2,7 @@
   "name": "browsery",
   "description": "Browser compatible Node modules",
   "private": true,
-  "version": "1.0.2",
+  "version": "2026.10.7-1529",
   "license": "MIT",
   "contributors": [
     "Eray Hanoglu <e.hanoglu@panates.com>",
