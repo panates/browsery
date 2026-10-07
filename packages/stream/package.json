@@ -1,6 +1,6 @@
 {
   "name": "@browsery/stream",
-  "version": "4.7.0-rev.0",
+  "version": "4.7.0-rev.1",
   "description": "Browser compatible NodeJS stream module",
   "author": "Panates",
   "contributors": [
