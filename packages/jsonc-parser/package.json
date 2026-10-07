@@ -1,6 +1,6 @@
 {
   "name": "@browsery/jsonc-parser",
-  "version": "3.3.1-rev.0",
+  "version": "3.3.1-rev.1",
   "description": "Browser compatible 'jsonc-parser' module",
   "author": "Panates",
   "contributors": [
