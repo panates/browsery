@@ -4,7 +4,7 @@
  */
 export { default as InputStream } from './InputStream.js';
 export { default as CharStream } from './CharStream.js';
-export { default as CharStreams } from './CharStreams.js';
+export { default as CharStreams } from './CharStreams.web.js';
 export { default as TokenStream } from './TokenStream.js';
 export { default as BufferedTokenStream } from './BufferedTokenStream.js';
 export { default as CommonToken } from './CommonToken.js';
