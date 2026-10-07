@@ -30,37 +30,6 @@ const defaultConfig = {
   mainFields: ['module', 'main'],
   keepNames: true,
   external: [...external, '@browsery/stream'],
-  banner: {
-    js: `
-function assertOk(a){
-  if (!a)
-    throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == true');
-};
-function assertEqual(a, b){
-  if (a !== b)
-    throw new TypeError('AssertionError [ERR_ASSERTION]: ' + JSON.stringify(a) + ' == ' + JSON.stringify(b));
-};    
-`,
-  },
-  plugins: [
-    {
-      name: 'Custom',
-      setup(build) {
-        build.onLoad({ filter: /.*/ }, args => {
-          let contents = fs.readFileSync(args.path, 'utf-8');
-          if (contents.includes('assert.')) {
-            contents = contents
-              .replaceAll("var assert = require('assert');", '')
-              .replaceAll('assert.ok(', 'assertOk(')
-              .replaceAll('assert.equal(', 'assertEqual(');
-          }
-          return {
-            contents,
-          };
-        });
-      },
-    },
-  ],
 };
 
 await esbuild.build({
